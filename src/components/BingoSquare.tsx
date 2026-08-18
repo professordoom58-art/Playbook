@@ -35,10 +35,8 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
   const isLongPressRef = useRef<boolean>(false);
 
   const triggerBounce = () => {
-    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      setIsBouncing(true);
-      setTimeout(() => setIsBouncing(false), 450);
-    }
+    setIsBouncing(true);
+    setTimeout(() => setIsBouncing(false), 350);
   };
 
   const handleTouchStart = () => {
