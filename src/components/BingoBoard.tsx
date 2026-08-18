@@ -113,7 +113,10 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
 
           {/* 1. CENTERED HEADING */}
           <div className="w-full text-center px-2">
-            <h2 className="font-display font-black text-xs sm:text-sm tracking-widest text-slate-900 dark:text-white uppercase leading-tight select-none">
+            <h2
+              className="font-display font-black text-xs sm:text-sm tracking-widest uppercase leading-tight select-none"
+              style={{ color: '#FFFFFF', textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}
+            >
               GOVERNMENT'S PLAYBOOK BINGO
             </h2>
           </div>

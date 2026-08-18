@@ -190,14 +190,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="lg:col-span-7 text-left space-y-5 order-2 lg:order-1">
 
             <div
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-2 font-extrabold text-xs uppercase tracking-wide shadow-sm"
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border font-extrabold text-[9px] sm:text-[10px] uppercase tracking-wide shadow-xs"
               style={{
                 backgroundColor: isDarkMode ? 'rgba(69, 26, 3, 0.6)' : '#FEF3C7',
                 borderColor: isDarkMode ? 'rgba(180, 83, 9, 0.5)' : '#FDE68A',
                 color: isDarkMode ? '#FDE68A' : '#78350F',
               }}
             >
-              <Flame className="w-4 h-4 fill-amber-500 flex-shrink-0" style={{ color: isDarkMode ? '#F59E0B' : '#D97706' }} />
+              <Flame className="w-3 h-3 fill-amber-500 flex-shrink-0" style={{ color: isDarkMode ? '#F59E0B' : '#D97706' }} />
               <span>please dont sue me prettty please</span>
             </div>
 
