@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-semibold gap-4">
-        <span>© 2026 Playbook Bingo. Built for civic pattern-recognition & public education.</span>
+        <span>© 2026 TUNG TUNG TUNG SAHUR(TRIPLE T)</span>
         <span className="flex items-center gap-1">
           Crafted with care & political satire 🎯
         </span>

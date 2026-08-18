@@ -546,7 +546,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           <span className="text-[11px] text-slate-500 font-semibold">
-            © 2026 Playbook Bingo. Built for political satire &amp; pattern recognition. Enjoy!
+            © 2026 TUNG TUNG TUNG SAHUR(TRIPLE T)
           </span>
 
         </div>
