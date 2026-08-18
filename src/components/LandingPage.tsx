@@ -70,31 +70,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
 
-          <div className="flex items-center gap-2.5 flex-shrink-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-amber-400 rounded-2xl border-2 border-amber-500
-              flex items-center justify-center shadow-[0_2.5px_0_0_#D97706]">
+          <div className="flex items-center gap-2 flex-shrink min-w-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-400 rounded-xl sm:rounded-2xl border-2 border-amber-500
+              flex items-center justify-center shadow-[0_2px_0_0_#D97706] flex-shrink-0">
               <Target className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 stroke-[2.5]" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span
-                  className="font-display font-black text-base sm:text-xl tracking-tight leading-none hidden sm:block"
-                  style={{ color: isDarkMode ? '#FFFFFF' : '#0F172A' }}
-                >
-                  PLAYBOOK BINGO
-                </span>
-                <span
-                  className="font-display font-black text-base tracking-tight leading-none sm:hidden"
-                  style={{ color: isDarkMode ? '#FFFFFF' : '#0F172A' }}
-                >
-                  PB
-                </span>
-              </div>
+            <div className="flex flex-col justify-center min-w-0">
               <span
-                className="text-[10px] sm:text-xs font-semibold hidden md:inline-block"
+                className="font-display font-black text-xs sm:text-xl tracking-tight leading-tight truncate block"
+                style={{ color: isDarkMode ? '#FFFFFF' : '#0F172A' }}
+              >
+                PLAYBOOK BINGO
+              </span>
+              <span
+                className="text-[8.5px] sm:text-xs font-semibold leading-none truncate block mt-0.5"
                 style={{ color: isDarkMode ? '#94A3B8' : '#475569' }}
               >
-                Government's Playbook Bingo
+                Media's playbook to discredit dissent
               </span>
             </div>
           </div>
