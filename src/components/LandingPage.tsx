@@ -283,11 +283,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       >
                         {item.label}
                       </span>
-                      {item.marked && (
-                        <span className="text-[7.5px] sm:text-[9.5px] font-black leading-none flex-shrink-0" style={{ color: '#020617' }}>
-                          ✓
-                        </span>
-                      )}
                     </button>
                   ))}
                 </div>
