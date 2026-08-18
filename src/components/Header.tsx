@@ -128,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="hidden sm:inline">Share Card</span>
             <span className="sm:hidden">Share</span>
             {markedCount > 0 && (
-              <span className="bg-amber-950 text-amber-200 text-[10px] px-1.5 py-px rounded-full font-black min-w-[18px] text-center">
+              <span className="bg-slate-950 text-white text-[10px] w-5 h-5 rounded-full font-black flex items-center justify-center border border-amber-300/40 shadow-xs leading-none">
                 {markedCount}
               </span>
             )}
