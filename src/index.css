@@ -1,0 +1,1742 @@
+/* ═══════════════════════════════════════════════════════════════
+   PLAYBOOK BINGO — Global CSS
+   Design system: bright, minimal, playful, satirical
+   No patch layers. Single source of truth.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Google Fonts are loaded via <link> in index.html ───────────── */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ─────────────────────────────────────────────────────── */
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #1E293B;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-display {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GAME PAGE — strict viewport lock
+   Landing page is NOT affected (has its own scroll root)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* The outer wrapper: exactly fills the viewport */
+.game-root {
+  position: relative;
+  height: 100dvh;
+  /* dynamic viewport: excludes mobile browser chrome */
+  width: 100vw;
+  overflow: hidden;
+  /* block the BROWSER scroll, content must fit */
+  display: flex;
+  flex-direction: column;
+  background-color: #FAF7F0;
+}
+
+/* Background wallpaper — 50% dark tint & blur in Light Mode */
+.game-root::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  z-index: 0;
+  background-image: linear-gradient(rgba(15, 23, 42, 0.50), rgba(15, 23, 42, 0.50)), url('/tron-le-aAn-_iTks4E-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+/* Header: fixed height, never shrinks */
+.game-header {
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+/* Main content: all remaining vertical space */
+.game-main {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  min-height: 0;
+  /* critical: lets flex children shrink below content-size */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: 16px;
+  padding: 14px 20px;
+  overflow: hidden;
+}
+
+/* At narrow desktops / large tablets: single column, allow scroll */
+@media (max-width: 900px) {
+  .game-root {
+    height: auto;
+    overflow: visible;
+  }
+
+  .game-main {
+    grid-template-columns: 1fr;
+    padding: 12px 16px;
+    gap: 12px;
+    overflow: visible;
+  }
+}
+
+/* ── Bingo section: left column ─────────────────────────────── */
+.bingo-section {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.bingo-layout-wrapper {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* ── LEFT SIDEBAR (VERTICAL TITLE & METER) ─────────────────── */
+.bingo-left-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
+  width: 76px;
+  min-width: 76px;
+  max-width: 76px;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.bingo-vertical-title,
+html.dark .bingo-vertical-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #FFFFFF !important;
+  text-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.8) !important;
+  text-transform: uppercase;
+  user-select: none;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.bingo-vertical-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+  box-sizing: border-box;
+}
+
+.meter-badge {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 10px;
+  color: #0F172A;
+  background: #F1F5F9;
+  border: 1.5px solid #CBD5E1;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.vertical-progress-track {
+  flex: 1;
+  width: 22px;
+  background: #F1F5F9;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 2px solid #CBD5E1;
+  box-shadow: inset 0 1.5px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-progress-fill {
+  width: 100%;
+  background: linear-gradient(0deg, #10B981 0%, #F59E0B 50%, #F43F5E 100%);
+  border-radius: 999px;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── RIGHT SIDEBAR (ACTIONS & TITLE) ────────────────────────── */
+.bingo-right-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  max-height: 100%;
+  flex-shrink: 0;
+  width: 155px;
+  padding: 2px 0;
+}
+
+.right-sidebar-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 6px 8px;
+}
+
+/* ── Orwell section: right column ───────────────────────────── */
+.orwell-section {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BINGO GRID — mathematical squares
+   ═══════════════════════════════════════════════════════════════ */
+
+/* The board grid outer card — fits tightly around the square grid */
+.bingo-board-card {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  max-height: 100%;
+  max-width: 100%;
+  flex: 0 1 auto;
+  flex-shrink: 0;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+html.dark .bingo-board-card {
+  background: #0F172A !important;
+  border-color: #334155 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Square grid wrapper fits perfectly inside the 1:1 card */
+.bingo-grid-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 5px;
+}
+
+@media (min-width: 1400px) {
+  .bingo-grid-wrapper {
+    gap: 7px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bingo-layout-wrapper {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+    gap: 12px;
+  }
+
+  .bingo-left-sidebar {
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .bingo-vertical-title {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .bingo-vertical-meter {
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    max-width: 170px;
+    gap: 6px;
+    padding: 0;
+  }
+
+  .vertical-progress-track {
+    width: 90px;
+    height: 8px;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .vertical-progress-fill {
+    height: 100% !important;
+    width: var(--pct, 0%) !important;
+    transition: width 0.3s ease;
+  }
+
+  .bingo-right-sidebar {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+    padding: 0;
+  }
+
+  /* On mobile/tablet: card is auto height, grid fills full width as a square */
+  .bingo-board-card {
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    padding: 6px;
+  }
+
+  .bingo-grid-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .bingo-cell {
+    padding: 2px 3px !important;
+  }
+}
+
+/* ── Individual Bingo Cell ────────────────────────────────────── */
+@keyframes springBounce {
+  0% {
+    transform: scale(0.90);
+  }
+
+  35% {
+    transform: scale(1.10);
+  }
+
+  60% {
+    transform: scale(0.95);
+  }
+
+  80% {
+    transform: scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cell-spring-bounce {
+  animation: springBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.bingo-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 4px 5px;
+  border-radius: 10px;
+  border: 2px solid #E2E8F0;
+  background: #FFFFFF;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  will-change: transform;
+}
+
+.bingo-cell:hover {
+  transform: translateY(-2px) scale(1.025);
+  border-color: #F59E0B;
+  background-color: #FFFDF5;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.bingo-cell:active {
+  transform: scale(0.91) !important;
+  transition: transform 0.08s ease-out !important;
+  background-color: #FEF3C7;
+}
+
+.bingo-cell.is-marked {
+  background: #FEF3C7;
+  border-color: #F59E0B;
+  box-shadow: inset 0 0 0 1px #F59E0B;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ORWELL PANEL
+   ═══════════════════════════════════════════════════════════════ */
+.orwell-summary-card {
+  flex-shrink: 0;
+  background: #FFFFFF;
+  border: 2px solid #FECACA;
+  border-radius: 16px;
+  box-shadow: 0 3px 0 0 #FCA5A5;
+  padding: 12px 14px;
+}
+
+.orwell-factors-card {
+  flex: 1;
+  min-height: 0;
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 3px 0 0 #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 10px 12px;
+}
+
+.orwell-factors-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.orwell-factors-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.orwell-factors-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.orwell-factors-list::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 999px;
+}
+
+.orwell-factor-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7.5px 10px;
+  border-radius: 10px;
+  border: 1.5px solid #E2E8F0;
+  background: #F1F5F9;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.orwell-factor-row:hover {
+  background: #E2E8F0;
+  border-color: #CBD5E1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS COLOR SYSTEM (consistent across Bingo + Orwell)
+   ═══════════════════════════════════════════════════════════════ */
+.status-flagged {
+  --status-bg: #FFF1F2;
+  --status-border: #FECDD3;
+  --status-text: #BE123C;
+  --status-dot: #F43F5E;
+}
+
+.status-not-flagged {
+  --status-bg: #F0FDF4;
+  --status-border: #BBF7D0;
+  --status-text: #15803D;
+  --status-dot: #22C55E;
+}
+
+.status-insufficient {
+  --status-bg: #FFFBEB;
+  --status-border: #FDE68A;
+  --status-text: #92400E;
+  --status-dot: #F59E0B;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1.5px solid var(--status-border);
+  background: var(--status-bg);
+  color: var(--status-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--status-dot);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTON SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-xl font-black text-xs transition-all duration-150 active:translate-y-0.5 cursor-pointer select-none;
+  }
+
+  /* Primary: vibrant amber 3D retro button */
+  .btn-primary {
+    @apply btn bg-gradient-to-b from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 text-slate-950 border-2 border-amber-500 shadow-[0_3px_0_0_#D97706] hover:shadow-[0_4px_0_0_#D97706] hover:-translate-y-0.5 active:shadow-none active:translate-y-1 px-4 py-2 rounded-xl;
+  }
+
+  /* Secondary: clean white/slate 3D retro button */
+  .btn-secondary {
+    @apply btn bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-200 shadow-[0_2.5px_0_0_#CBD5E1] hover:border-slate-300 hover:shadow-[0_3.5px_0_0_#94A3B8] hover:-translate-y-0.5 active:shadow-none active:translate-y-1 px-3 py-1.5 rounded-xl;
+  }
+
+  /* Ghost: smooth nav items */
+  .btn-ghost {
+    @apply btn bg-transparent hover:bg-purple-50 hover:text-purple-700 text-slate-700 border-2 border-transparent px-3 py-1.5 rounded-xl;
+  }
+
+  /* Purple: rich 3D action button */
+  .btn-purple {
+    @apply btn bg-purple-600 hover:bg-purple-500 text-white border-2 border-purple-700 shadow-[0_3px_0_0_#5B21B6] hover:shadow-[0_4px_0_0_#5B21B6] hover:-translate-y-0.5 active:shadow-none active:translate-y-1 px-4 py-2 rounded-xl;
+  }
+
+  /* Danger variant */
+  .btn-danger {
+    @apply btn bg-rose-500 hover:bg-rose-400 text-white border-2 border-rose-600 shadow-[0_2.5px_0_0_#9F1239] hover:shadow-[0_3.5px_0_0_#9F1239] hover:-translate-y-0.5 active:shadow-none active:translate-y-1 px-3 py-1.5 rounded-xl;
+  }
+
+  /* Play Primary & Play Secondary hero buttons */
+  .btn-play-primary {
+    @apply btn bg-gradient-to-b from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 border-2 border-amber-600 shadow-[0_4px_0_0_#B45309] hover:shadow-[0_5px_0_0_#B45309] hover:-translate-y-0.5 active:shadow-none active:translate-y-1 font-black rounded-xl text-base py-3.5 px-6;
+  }
+
+  .btn-play-secondary {
+    @apply btn bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 shadow-[0_4px_0_0_#CBD5E1] hover:border-slate-400 hover:shadow-[0_5px_0_0_#94A3B8] hover:-translate-y-0.5 active:shadow-none active:translate-y-1 font-black rounded-xl text-base py-3.5 px-6;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARD / PANEL SYSTEM
+   ═══════════════════════════════════════════════════════════════ */
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl border-2 border-slate-200 shadow-[0_3px_0_0_#E2E8F0];
+  }
+
+  .card-accent {
+    @apply bg-white rounded-2xl border-2 border-amber-200 shadow-[0_3px_0_0_#FDE68A];
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════════════════════════ */
+.progress-bar {
+  width: 100%;
+  height: 5px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid #CBD5E1;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #F59E0B, #F43F5E, #8B5CF6);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOAST POPUP
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0px) scale(1);
+  }
+}
+
+.toast {
+  animation: toastIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CATEGORY BADGE COLORS (used inside cells)
+   ═══════════════════════════════════════════════════════════════ */
+.cat-RHETORIC {
+  background: #FFF1F2;
+  color: #BE123C;
+  border-color: #FECDD3;
+}
+
+.cat-MEDIA {
+  background: #FAF5FF;
+  color: #7E22CE;
+  border-color: #E9D5FF;
+}
+
+.cat-LEGAL {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+}
+
+.cat-POLICING {
+  background: #FFFBEB;
+  color: #92400E;
+  border-color: #FDE68A;
+}
+
+.cat-SURVEILLANCE {
+  background: #ECFEFF;
+  color: #0E7490;
+  border-color: #A5F3FC;
+}
+
+.cat-ECONOMIC {
+  background: #F0FDF4;
+  color: #15803D;
+  border-color: #BBF7D0;
+}
+
+.cat-PSYCHOLOGICAL {
+  background: #EEF2FF;
+  color: #3730A3;
+  border-color: #C7D2FE;
+}
+
+.cat-ORGANIZATIONAL {
+  background: #F0FDFA;
+  color: #115E59;
+  border-color: #99F6E4;
+}
+
+.cat-POLITICAL {
+  background: #FFF7ED;
+  color: #9A3412;
+  border-color: #FED7AA;
+}
+
+.cat-INFORMATION {
+  background: #F0F9FF;
+  color: #075985;
+  border-color: #BAE6FD;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BINGO VICTORY ANIMATION
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes victoryPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.2);
+  }
+}
+
+.victory-pulse {
+  animation: victoryPulse 1.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODAL OVERLAY
+   ═══════════════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-content {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-radius: 24px;
+  border: 2.5px solid #0F172A !important;
+  box-shadow: 0 10px 0 0 #0F172A !important;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 100%;
+}
+
+.modal-header-bar {
+  background-color: #FFFFFF !important;
+  border-bottom: 2px solid #E2E8F0 !important;
+}
+
+.modal-header-title {
+  color: #0F172A !important;
+}
+
+.modal-header-sub {
+  color: #475569 !important;
+}
+
+.modal-body-area {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+.modal-selector-box {
+  background-color: #F8FAFC !important;
+  border: 1.5px solid #E2E8F0 !important;
+}
+
+.modal-selector-title {
+  color: #0F172A !important;
+}
+
+.modal-caption-text {
+  color: #475569 !important;
+}
+
+/* Dark Mode Modal Guarantees */
+html.dark .modal-content {
+  background-color: #0B0F19 !important;
+  color: #FFFFFF !important;
+  border-color: #334155 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .modal-header-bar {
+  background-color: #0F172A !important;
+  border-bottom-color: #1E293B !important;
+}
+
+html.dark .modal-header-title {
+  color: #FFFFFF !important;
+}
+
+html.dark .modal-header-sub {
+  color: #CBD5E1 !important;
+}
+
+html.dark .modal-body-area {
+  background-color: #0B0F19 !important;
+  color: #FFFFFF !important;
+}
+
+html.dark .modal-selector-box {
+  background-color: #131926 !important;
+  border-color: #273046 !important;
+}
+
+html.dark .modal-selector-title {
+  color: #F8FAFC !important;
+}
+
+html.dark .modal-caption-text {
+  color: #CBD5E1 !important;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Rain animation for Dramatic mode ────────────────────────── */
+@keyframes rainFall {
+  0% {
+    transform: translateY(-20px) skewX(-12deg);
+  }
+
+  100% {
+    transform: translateY(115vh) skewX(-12deg);
+  }
+}
+
+.rain-drop {
+  animation: rainFall linear infinite;
+  will-change: transform;
+}
+
+/* ── Dark Mode Overrides ────────────────────────────────────────────────── */
+
+/* Base */
+html.dark,
+html.dark body {
+  background-color: #0B0F19 !important;
+  color: #E2E8F0 !important;
+}
+
+/* Cream backgrounds → deep navy */
+html.dark .bg-\[\#FAF7F0\],
+html.dark .bg-\[\#FAF7F0\]\/90 {
+  background-color: #0B0F19 !important;
+}
+
+/* White surfaces → dark card */
+html.dark .bg-white {
+  background-color: #131926 !important;
+  border-color: #273046 !important;
+}
+
+/* ── Header Theme System (Light & Dark Guarantees) ───────────────────── */
+header,
+.game-header {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Light mode text contrast inside header */
+header .font-display,
+.game-header .font-display {
+  color: #0F172A !important;
+}
+
+header .text-slate-500,
+.game-header .text-slate-500 {
+  color: #475569 !important;
+}
+
+header nav button,
+.game-header nav button {
+  color: #334155 !important;
+  transition: all 0.15s ease;
+}
+
+header nav button:hover,
+.game-header nav button:hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* Dark mode header guarantees */
+html.dark header,
+html.dark .game-header {
+  background-color: #0F172A !important;
+  border-color: #1E293B !important;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark header .font-display,
+html.dark .game-header .font-display {
+  color: #FFFFFF !important;
+}
+
+html.dark header .text-slate-500,
+html.dark .game-header .text-slate-500 {
+  color: #94A3B8 !important;
+}
+
+html.dark header nav button,
+html.dark .game-header nav button {
+  color: #E2E8F0 !important;
+}
+
+html.dark header nav button:hover,
+html.dark .game-header nav button:hover {
+  background-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+/* ── Scorecard Widget Light & Dark Theme System ──────────────────────── */
+.scorecard-widget {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+.scorecard-metric-box {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+.scorecard-title {
+  color: #334155 !important;
+}
+
+.scorecard-num {
+  color: #0F172A !important;
+}
+
+.scorecard-num-purple {
+  color: #7E22CE !important;
+}
+
+.scorecard-label {
+  color: #475569 !important;
+}
+
+/* Dark Mode Scorecard Widget */
+html.dark .scorecard-widget {
+  background-color: #131926 !important;
+  border-color: #273046 !important;
+}
+
+html.dark .scorecard-metric-box {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+html.dark .scorecard-title {
+  color: #CBD5E1 !important;
+}
+
+html.dark .scorecard-num {
+  color: #FFFFFF !important;
+}
+
+html.dark .scorecard-num-purple {
+  color: #D8B4FE !important;
+}
+
+html.dark .scorecard-label {
+  color: #94A3B8 !important;
+}
+
+/* ── Text colours in Dark Mode ────────────────────────────────────────── */
+html.dark .text-slate-950,
+html.dark .text-slate-900,
+html.dark .text-slate-800 {
+  color: #F8FAFC !important;
+}
+
+html.dark .text-slate-700 {
+  color: #F1F5F9 !important;
+}
+
+html.dark .text-slate-600 {
+  color: #E2E8F0 !important;
+}
+
+html.dark .text-slate-500 {
+  color: #CBD5E1 !important;
+}
+
+html.dark .text-slate-400 {
+  color: #94A3B8 !important;
+}
+
+html.dark .text-slate-300 {
+  color: #64748B !important;
+}
+
+/* ── Border colours ───────────────────────────────────────────────────── */
+html.dark .border-slate-200 {
+  border-color: #1E2D44 !important;
+}
+
+html.dark .border-slate-100 {
+  border-color: #1A2538 !important;
+}
+
+/* ── Hover backgrounds ────────────────────────────────────────────────── */
+html.dark .hover\:bg-slate-100:hover {
+  background-color: #1A2538 !important;
+}
+
+html.dark .hover\:bg-slate-50:hover {
+  background-color: #151D2E !important;
+}
+
+html.dark .game-root::before {
+  display: block !important;
+  content: '' !important;
+  position: absolute !important;
+  inset: -10px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background-image: linear-gradient(rgba(11, 15, 25, 0.90), rgba(11, 15, 25, 0.90)), url('/tron-le-aAn-_iTks4E-unsplash.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: blur(5px) !important;
+}
+
+/* ── Panel / Card backgrounds ─────────────────────────────────────────── */
+html.dark .bingo-board-card {
+  background-color: #131926 !important;
+  background-image: none !important;
+  border-color: #273046 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark .right-sidebar-header {
+  background-color: #1A2538 !important;
+  border-color: #273046 !important;
+}
+
+html.dark .orwell-summary-card {
+  background-color: #131926 !important;
+  border-color: #4C1D1D !important;
+  box-shadow: 0 3px 0 0 #0B0F19 !important;
+}
+
+html.dark .orwell-factors-card {
+  background-color: #131926 !important;
+  border-color: #273046 !important;
+  box-shadow: 0 3px 0 0 #0B0F19 !important;
+}
+
+html.dark .orwell-factor-row {
+  background-color: #1A2538 !important;
+  border-color: transparent !important;
+}
+
+html.dark .orwell-factor-row:hover {
+  background-color: #1F3050 !important;
+  border-color: #334155 !important;
+}
+
+/* ── Bingo Cell ───────────────────────────────────────────────────────── */
+html.dark .bingo-cell {
+  background: #1A2538 !important;
+  border-color: #273046 !important;
+}
+
+html.dark .bingo-cell:hover {
+  background-color: #1E2D44 !important;
+  border-color: #F59E0B !important;
+}
+
+html.dark .bingo-cell.is-marked {
+  background: linear-gradient(145deg, #451A03 0%, #2B0D02 100%) !important;
+  border-color: #F59E0B !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35), inset 0 0 0 1.5px #F59E0B !important;
+}
+
+html.dark .bingo-cell.is-marked .text-amber-950 {
+  color: #FEF08A !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+html.dark .bingo-cell .text-slate-950 {
+  color: #E2E8F0 !important;
+}
+
+/* ── Progress bar ─────────────────────────────────────────────────────── */
+html.dark .progress-bar {
+  background: #1A2538 !important;
+  border-color: #273046 !important;
+}
+
+html.dark .vertical-progress-track {
+  background: #1A2538 !important;
+  border-color: #273046 !important;
+}
+
+/* ── Meter badge ──────────────────────────────────────────────────────── */
+html.dark .meter-badge {
+  background: #1A2538 !important;
+  border-color: #334155 !important;
+  color: #CBD5E1 !important;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────── */
+html.dark .btn-secondary {
+  background: #1A2538 !important;
+  border-color: #334155 !important;
+  color: #CBD5E1 !important;
+  box-shadow: 0 2px 0 0 #0B0F19 !important;
+}
+
+html.dark .btn-secondary:hover {
+  background: #1F3050 !important;
+}
+
+html.dark .btn-ghost:hover {
+  background: #1A2538 !important;
+}
+
+/* ── Inputs ───────────────────────────────────────────────────────────── */
+html.dark input,
+html.dark textarea {
+  background: #1A2538 !important;
+  border-color: #334155 !important;
+  color: #E2E8F0 !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #475569 !important;
+}
+
+html.dark input:focus,
+html.dark textarea:focus {
+  border-color: #8B5CF6 !important;
+}
+
+/* ── Modal ────────────────────────────────────────────────────────────── */
+html.dark .modal-content {
+  background: #0F172A !important;
+  border-color: #334155 !important;
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.8) !important;
+}
+
+html.dark .modal-content > div:first-child {
+  background-color: #1E293B !important;
+  border-bottom-color: #334155 !important;
+}
+
+html.dark .modal-content .bg-white {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+html.dark .modal-content .border-slate-100,
+html.dark .modal-content .border-slate-200 {
+  border-color: #334155 !important;
+}
+
+/* ── Slate tinted backgrounds ─────────────────────────────────────────── */
+html.dark .bg-slate-50 {
+  background-color: #161D2E !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #1C2840 !important;
+}
+
+html.dark .bg-slate-200 {
+  background-color: #223252 !important;
+}
+
+/* ── Landing page section cards ───────────────────────────────────────── */
+html.dark .rounded-3xl.bg-\[\#FAF7F0\] {
+  background-color: #161D2E !important;
+  border-color: #1E3A5F !important;
+}
+
+/* ── Amber info boxes ─────────────────────────────────────────────────── */
+html.dark .bg-amber-50 {
+  background-color: #2C1A04 !important;
+}
+
+html.dark .bg-rose-50 {
+  background-color: #2A0E1A !important;
+}
+
+html.dark .bg-purple-50 {
+  background-color: #1E0F3A !important;
+}
+
+html.dark .bg-blue-50 {
+  background-color: #0B1530 !important;
+}
+
+html.dark .bg-emerald-50 {
+  background-color: #06200F !important;
+}
+
+/* Border colours for tinted boxes */
+html.dark .border-amber-300 {
+  border-color: #D97706 !important;
+}
+
+html.dark .border-amber-400 {
+  border-color: #F59E0B !important;
+}
+
+html.dark .border-rose-200 {
+  border-color: #9F1239 !important;
+}
+
+html.dark .border-purple-300 {
+  border-color: #7C3AED !important;
+}
+
+html.dark .border-purple-100 {
+  border-color: #4C1D95 !important;
+}
+
+html.dark .border-blue-300 {
+  border-color: #2563EB !important;
+}
+
+html.dark .border-emerald-200 {
+  border-color: #059669 !important;
+}
+
+html.dark .border-slate-200 {
+  border-color: #1E3A5F !important;
+}
+
+/* Text within tinted boxes */
+html.dark .text-amber-950 {
+  color: #FDE68A !important;
+}
+
+html.dark .text-amber-800 {
+  color: #FCD34D !important;
+}
+
+html.dark .text-amber-700 {
+  color: #FBBF24 !important;
+}
+
+html.dark .text-amber-600 {
+  color: #F59E0B !important;
+}
+
+html.dark .text-rose-700 {
+  color: #FB7185 !important;
+}
+
+html.dark .text-purple-700 {
+  color: #C084FC !important;
+}
+
+html.dark .text-purple-600 {
+  color: #A855F7 !important;
+}
+
+html.dark .text-purple-500 {
+  color: #D946EF !important;
+}
+
+/* ── Bingo vertical title ─────────────────────────────────────────────── */
+html.dark .bingo-vertical-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ── Bingo category tag badges — Light & Dark mode colors ────────────── */
+.cat-badge-NATIONALISM { background: #FFF1F2; color: #BE123C; border: 1px solid #FECDD3; }
+.cat-badge-FOREIGN     { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.cat-badge-EXTREMISM   { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+.cat-badge-RELIGION    { background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+.cat-badge-MEDIA       { background: #ECFEFF; color: #0E7490; border: 1px solid #A5F3FC; }
+.cat-badge-CLASS       { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+
+html.dark .cat-badge-NATIONALISM { background: #4C0519 !important; color: #FDA4AF !important; border: 1px solid #9F1239 !important; }
+html.dark .cat-badge-FOREIGN     { background: #1E3A8A !important; color: #93C5FD !important; border: 1px solid #1D4ED8 !important; }
+html.dark .cat-badge-EXTREMISM   { background: #451A03 !important; color: #FDE68A !important; border: 1px solid #78350F !important; }
+html.dark .cat-badge-RELIGION    { background: #3B0764 !important; color: #E9D5FF !important; border: 1px solid #7E22CE !important; }
+html.dark .cat-badge-MEDIA       { background: #164E63 !important; color: #A5F3FC !important; border: 1px solid #0E7490 !important; }
+html.dark .cat-badge-CLASS       { background: #14532D !important; color: #BBF7D0 !important; border: 1px solid #15803D !important; }
+
+
+html.dark .bg-emerald-50.border-emerald-200 {
+  background-color: #0A1A12 !important;
+  border-color: #064E3B !important;
+}
+
+html.dark .text-emerald-700 {
+  color: #34D399 !important;
+}
+
+html.dark .text-emerald-600 {
+  color: #10B981 !important;
+}
+
+/* ── Scrollbars in dark mode ──────────────────────────────────────────── */
+html.dark .orwell-factors-list::-webkit-scrollbar-thumb {
+  background: #273046;
+}
+
+/* ── Landing page hero console screen ────────────────────────────────── */
+html.dark .bg-slate-950 {
+  background-color: #030712 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BINGO TAB — additional dark mode overrides (game-root + all game classes)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Game root background with 90% dark tint wallpaper in Dark Mode */
+html.dark .game-root {
+  background-color: #0B0F19 !important;
+}
+
+html.dark .game-root::before {
+  background-image: linear-gradient(rgba(11, 15, 25, 0.90), rgba(11, 15, 25, 0.90)), url('/tron-le-aAn-_iTks4E-unsplash.jpg') !important;
+}
+
+html.dark .game-main {
+  background-color: transparent !important;
+}
+
+/* Bingo section area */
+html.dark .bingo-section {
+  background-color: transparent !important;
+}
+
+/* Vertical title text */
+html.dark .bingo-vertical-title {
+  color: #FFFFFF !important;
+}
+
+/* Meter badge */
+html.dark .meter-badge {
+  background: #1A2538 !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+
+/* Progress track */
+html.dark .vertical-progress-track {
+  background: #1A2538 !important;
+  border-color: #273046 !important;
+  box-shadow: inset 0 1.5px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Board card */
+html.dark .bingo-board-card {
+  background: #131926 !important;
+  border-color: #273046 !important;
+  box-shadow: 0 4px 0 0 #060A12 !important;
+}
+
+/* Right sidebar header strip */
+html.dark .right-sidebar-header {
+  background: #131926 !important;
+  border-color: #1E2D44 !important;
+}
+
+/* Bingo cell — default */
+html.dark .bingo-cell {
+  background: #1C2841 !important;
+  border-color: #243450 !important;
+  color: #E2E8F0 !important;
+}
+
+/* Bingo cell — hover */
+html.dark .bingo-cell:hover {
+  background: #1F3050 !important;
+  border-color: #F59E0B !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12) !important;
+}
+
+/* Bingo cell — marked */
+html.dark .bingo-cell.is-marked {
+  background: linear-gradient(145deg, #451A03 0%, #2B0D02 100%) !important;
+  border-color: #F59E0B !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35), inset 0 0 0 1.5px #F59E0B !important;
+}
+
+/* Bingo cell label text (the big uppercase label span) — uses font-black so target broadly */
+html.dark .bingo-cell span[class*="font-black"],
+html.dark .bingo-cell span[class*="text-slate-950"],
+html.dark .bingo-cell span[class*="text-amber-950"] {
+  color: #E2E8F0 !important;
+}
+
+html.dark .bingo-cell.is-marked span[class*="font-black"],
+html.dark .bingo-cell.is-marked span[class*="text-amber-950"] {
+  color: #FEF08A !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Small code/category badge inside cell */
+html.dark .bingo-cell span[class*="text-slate-300"] {
+  color: #334155 !important;
+}
+
+html.dark .bingo-cell span[class*="text-slate-400"] {
+  color: #334155 !important;
+}
+
+/* Orwell panel summary card */
+.orwell-summary-card h4 {
+  color: #0F172A !important;
+}
+
+html.dark .orwell-summary-card {
+  background: #131926 !important;
+  border-color: #3B1515 !important;
+  box-shadow: 0 3px 0 0 #060A12 !important;
+}
+
+html.dark .orwell-summary-card h4 {
+  color: #FFFFFF !important;
+}
+
+/* Orwell factors card */
+html.dark .orwell-factors-card {
+  background: #131926 !important;
+  border-color: #1E2D44 !important;
+  box-shadow: 0 3px 0 0 #060A12 !important;
+}
+
+/* Orwell factor rows */
+html.dark .orwell-factor-row {
+  background: #1A2538 !important;
+  border-color: transparent !important;
+}
+
+html.dark .orwell-factor-row:hover {
+  background: #1F3050 !important;
+  border-color: #334155 !important;
+}
+
+html.dark .orwell-factor-row span[class*="text-slate-800"] {
+  color: #CBD5E1 !important;
+}
+
+/* Chevron icon in orwell rows */
+html.dark .orwell-factor-row svg {
+  color: #475569 !important;
+}
+
+/* Progress bar in orwell panel */
+html.dark .progress-bar {
+  background: #1A2538 !important;
+  border-color: #273046 !important;
+}
+
+/* Btn secondary in dark (sidebar buttons: Shuffle, Clear) */
+html.dark .btn-secondary {
+  background: #1A2538 !important;
+  border-color: #334155 !important;
+  color: #CBD5E1 !important;
+  box-shadow: 0 2.5px 0 0 #060A12 !important;
+}
+
+html.dark .btn-secondary .text-rose-500,
+html.dark .btn-secondary .text-rose-400 {
+  color: #FB7185 !important;
+}
+
+html.dark .btn-secondary .text-purple-500,
+html.dark .btn-secondary .text-purple-400 {
+  color: #C084FC !important;
+}
+
+html.dark .btn-secondary:hover {
+  background: #1F3050 !important;
+}
+
+/* Tip caption below bingo board */
+html.dark .text-slate-400 {
+  color: #3B4F6B !important;
+}
+
+/* Category badge inline styles fallback — override bg to dark */
+html.dark .bingo-cell span[style*="background"] {
+  opacity: 0.7 !important;
+  filter: brightness(0.6) saturate(0.7) !important;
+}
+
+/* Primary Play button text and SVG icon color — ALWAYS BLACK in both light & dark modes */
+.btn-primary,
+.btn-primary span,
+html.dark .btn-primary,
+html.dark .btn-primary span {
+  color: #020617 !important;
+}
+
+.btn-primary svg,
+html.dark .btn-primary svg {
+  fill: #020617 !important;
+  color: #020617 !important;
+}
+
+/* Footer text colors — preserve identical text styling in both light and dark modes */
+html.dark footer,
+html.dark footer * {
+  border-color: inherit;
+}
+
+html.dark footer .text-slate-400 {
+  color: #94A3B8 !important;
+}
+
+html.dark footer .text-slate-300 {
+  color: #CBD5E1 !important;
+}
+
+html.dark footer .text-slate-500 {
+  color: #64748B !important;
+}
+
+html.dark footer .text-amber-400 {
+  color: #FBBF24 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5-ROW ALTERNATING SATIRE TICKER BACKGROUND
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes ticker-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes ticker-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-ticker-left {
+  display: flex;
+  width: max-content;
+  animation: ticker-left 26s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker-right {
+  display: flex;
+  width: max-content;
+  animation: ticker-right 26s linear infinite;
+  will-change: transform;
+}
+
+.satire-ticker-text {
+  font-family: 'Syne', 'Space Grotesk', 'Impact', 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  user-select: none;
+  white-space: nowrap;
+  -webkit-text-stroke: 2px rgba(15, 23, 42, 0.18);
+}
+
+html.dark .satire-ticker-text {
+  -webkit-text-stroke: 2px rgba(248, 250, 252, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RAINBOW MORPH, SHIFT, TILT & WIGGLE CTA BACKGROUND
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes rainbow-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.2);
+  }
+  25% {
+    background-position: 50% 100%;
+    filter: hue-rotate(15deg) saturate(1.3);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(0deg) saturate(1.4);
+  }
+  75% {
+    background-position: 50% 0%;
+    filter: hue-rotate(-15deg) saturate(1.3);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.2);
+  }
+}
+
+@keyframes rainbow-blob-morph1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  33% {
+    transform: translate(50px, -45px) scale(1.15) rotate(120deg);
+    border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%;
+  }
+  66% {
+    transform: translate(-40px, 40px) scale(0.9) rotate(240deg);
+    border-radius: 50% 50% 30% 70% / 60% 40% 70% 30%;
+  }
+}
+
+@keyframes rainbow-blob-morph2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 50% 70% 30% 50%;
+  }
+  33% {
+    transform: translate(-60px, 45px) scale(1.2) rotate(-120deg);
+    border-radius: 30% 70% 60% 40% / 70% 30% 50% 50%;
+  }
+  66% {
+    transform: translate(40px, -45px) scale(0.85) rotate(-240deg);
+    border-radius: 70% 30% 40% 60% / 40% 60% 30% 70%;
+  }
+}
+
+@keyframes rainbow-wiggle-tilt {
+  0%, 100% {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.04);
+  }
+  25% {
+    transform: perspective(1000px) rotateX(2.5deg) rotateY(-3deg) scale(1.06);
+  }
+  50% {
+    transform: perspective(1000px) rotateX(-2deg) rotateY(2.5deg) scale(1.05);
+  }
+  75% {
+    transform: perspective(1000px) rotateX(3deg) rotateY(1.5deg) scale(1.07);
+  }
+}
+
+.rainbow-cta-bg {
+  background: linear-gradient(135deg, #F59E0B, #F43F5E, #8B5CF6, #3B82F6, #10B981, #F59E0B);
+  background-size: 300% 300%;
+  animation: rainbow-gradient-shift 10s ease infinite;
+  will-change: background-position, filter;
+}
+
+.rainbow-blob-1 {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.8), rgba(244, 63, 94, 0.6), transparent 70%);
+  animation: rainbow-blob-morph1 12s ease-in-out infinite;
+  filter: blur(40px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA HEADING, SUBHEADING & BUTTON 3D TILT, SHIFT & WIGGLE
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes cta-content-tilt-shift {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(0.8deg);
+  }
+  75% {
+    transform: translateY(-9px) rotate(1.2deg);
+  }
+}
+
+.cta-content-wiggle-tilt {
+  animation: cta-content-tilt-shift 7.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.rainbow-blob-2 {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.8), rgba(59, 130, 246, 0.6), transparent 70%);
+  animation: rainbow-blob-morph2 15s ease-in-out infinite;
+  filter: blur(45px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RETRO CONSOLE DEMO CARD FLOAT & WIGGLE ANIMATION
+   ═══════════════════════════════════════════════════════════════ */
+@keyframes console-wiggle-tilt {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-7px) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(0.8deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(1.2deg);
+  }
+}
+
+.console-wiggle-container {
+  animation: console-wiggle-tilt 7.5s ease-in-out infinite;
+  will-change: transform;
+}
