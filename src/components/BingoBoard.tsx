@@ -221,7 +221,7 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
               <Share2 className="w-4 h-4 flex-shrink-0" />
               <span className="tracking-wide">SHARE CARD</span>
               {markedCount > 0 && (
-                <span className="bg-slate-950 text-white text-[10px] w-5 h-5 rounded-full font-black flex items-center justify-center border border-amber-300/40 shadow-xs leading-none ml-1">
+                <span className="share-badge-count bg-slate-950 text-white text-[10px] w-5 h-5 rounded-full font-black flex items-center justify-center border border-amber-300/40 shadow-xs leading-none ml-1">
                   {markedCount}
                 </span>
               )}

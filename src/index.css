@@ -1528,6 +1528,14 @@ html.dark .btn-primary span {
   color: #020617 !important;
 }
 
+/* Share count badge inside primary buttons — MUST BE PURE WHITE TEXT */
+.share-badge-count,
+.btn-primary .share-badge-count,
+html.dark .btn-primary .share-badge-count {
+  background-color: #020617 !important;
+  color: #FFFFFF !important;
+}
+
 .btn-primary svg,
 html.dark .btn-primary svg {
   fill: #020617 !important;
