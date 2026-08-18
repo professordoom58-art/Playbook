@@ -115,25 +115,27 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
       aria-pressed={marked}
       aria-label={`${label.shortLabel}: ${marked ? 'marked' : 'not marked'}. Press I to inspect.`}
     >
-      {/* TOP ROW: category badge + check or code — hidden when idle, visible on hover or when marked */}
-      <div className="w-full flex items-center justify-between gap-0.5 flex-shrink-0 min-h-[11px] sm:min-h-[14px]">
+      {/* TOP ROW: category badge + check or code */}
+      <div className="w-full flex items-center justify-between gap-0.5 flex-shrink-0 h-3 sm:h-3.5 overflow-hidden">
         <span
           className={`cat-badge-${label.category} text-[6.5px] sm:text-[7px] font-black uppercase tracking-wide px-0.5 sm:px-1 py-px rounded leading-none truncate max-w-[60%] flex-shrink-0 transition-opacity duration-150 ${
-            marked ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+            marked ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'
           }`}
         >
           {shortCat}
         </span>
 
-        {marked ? (
-          <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
-            <Check className="w-2 h-2 text-white stroke-[3.5]" />
-          </span>
-        ) : (
-          <span className="text-[6.5px] sm:text-[7px] font-bold text-slate-300 dark:text-slate-500 leading-none flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-            {label.code}
-          </span>
-        )}
+        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex items-center justify-center flex-shrink-0">
+          {marked ? (
+            <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+              <Check className="w-2 h-2 text-white stroke-[3.5]" />
+            </span>
+          ) : (
+            <span className="text-[6.5px] sm:text-[7px] font-bold text-slate-300 dark:text-slate-500 leading-none opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
+              {label.code}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* CENTER: THE LABEL — dominant element of the cell */}

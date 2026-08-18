@@ -438,6 +438,11 @@ html.dark .bingo-board-card {
   }
 }
 
+.bingo-cell:active {
+  transform: scale(0.95);
+  transition: transform 0.06s ease-out;
+}
+
 .bingo-cell.is-marked {
   background: #FEF3C7;
   border-color: #F59E0B;
