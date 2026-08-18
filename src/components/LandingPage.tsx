@@ -540,8 +540,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors">
               Disclaimer
             </button>
-            <button onClick={onPlayBingo} className="hover:text-amber-400 text-amber-400 transition-colors">
-              Play Bingo →
+            <button
+              onClick={onPlayBingo}
+              className="btn-primary inline-flex items-center justify-center gap-2 py-2.5 px-5 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform"
+            >
+              <Play className="w-4 h-4 fill-slate-950 stroke-none" />
+              <span>PLAY BINGO</span>
             </button>
           </div>
 
