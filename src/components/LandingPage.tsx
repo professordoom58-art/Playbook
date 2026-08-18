@@ -86,7 +86,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 className="text-[8.5px] sm:text-xs font-semibold leading-none truncate block mt-0.5"
                 style={{ color: isDarkMode ? '#94A3B8' : '#475569' }}
               >
-                Media's playbook to discredit dissent
+                Discredit Dissent
               </span>
             </div>
           </div>
