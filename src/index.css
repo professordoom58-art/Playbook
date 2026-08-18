@@ -266,8 +266,8 @@ html.dark .bingo-vertical-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
-  border: 2px solid #CBD5E1;
+  background: #FFFDF0;
+  border: 2px solid #FDE68A;
   border-radius: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   padding: 10px;

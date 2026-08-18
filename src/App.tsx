@@ -203,6 +203,7 @@ export function App() {
           onRenameMovement={handleRenameMovement}
           onAddEvidence={handleAddEvidence}
           onRemoveEvidence={handleRemoveEvidence}
+          isDarkMode={isDarkMode}
         />
 
         {/* RIGHT 35%: Orwell Check */}

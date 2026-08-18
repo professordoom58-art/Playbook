@@ -187,7 +187,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
 
           {/* Left: pitch */}
-          <div className="lg:col-span-7 text-left space-y-5">
+          <div className="lg:col-span-7 text-left space-y-5 order-2 lg:order-1">
 
             <div
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-2 font-extrabold text-xs uppercase tracking-wide shadow-sm"
@@ -214,7 +214,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </h1>
 
             <p
-              className="text-base sm:text-xl font-medium leading-relaxed max-w-xl"
+              className="hidden lg:block text-base sm:text-xl font-medium leading-relaxed max-w-xl"
               style={{ color: isDarkMode ? '#CBD5E1' : '#475569' }}
             >
               Spot the wild labels, political buzzwords, and viral accusations thrown around daily.
@@ -236,8 +236,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           {/* Right: Retro Console with Demo Card in Screen */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-[420px] console-wiggle-container">
+          <div className="lg:col-span-5 flex justify-center order-1 lg:order-2">
+            <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[380px] console-wiggle-container">
               {/* Console Frame Image */}
               <img
                 src="/ChatGPT Image Aug 18, 2026, 12_14_40 AM.png"

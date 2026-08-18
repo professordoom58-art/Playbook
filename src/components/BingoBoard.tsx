@@ -17,9 +17,8 @@ interface BingoBoardProps {
   onRenameMovement: (name: string) => void;
   onAddEvidence: (labelId: string, evidence: LabelEvidence) => void;
   onRemoveEvidence: (labelId: string, evidenceId: string) => void;
+  isDarkMode?: boolean;
 }
-
-
 
 export const BingoBoard: React.FC<BingoBoardProps> = ({
   movement,
@@ -31,6 +30,7 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
   onRenameMovement,
   onAddEvidence,
   onRemoveEvidence,
+  isDarkMode = false,
 }) => {
   const isMobile      = useIsMobile(767);
   const markedCount   = board.filter((s) => s.marked).length;
@@ -120,13 +120,31 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
 
           {/* 2. PROGRESS BAR DIRECTLY BELOW TITLE */}
           <div className="w-full flex flex-col items-center gap-1 px-1">
-            <div className="w-full flex items-center justify-between text-[10px] font-black tracking-wider text-slate-600 dark:text-slate-300 uppercase px-0.5">
-              <span>PROGRESS</span>
-              <span className={`px-2 py-0.5 rounded-full text-[9px] font-black ${isBingo ? 'bg-amber-400 text-slate-950 border border-amber-500' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200'}`}>
+            <div className="w-full flex items-center justify-between text-[10px] font-black tracking-wider uppercase px-0.5">
+              <span className="font-black drop-shadow-sm" style={{ color: isDarkMode ? '#CBD5E1' : '#FFFFFF' }}>
+                PROGRESS
+              </span>
+              <span
+                className={`px-2.5 py-0.5 rounded-full text-[9px] font-black transition-colors ${
+                  isBingo ? 'bg-amber-400 text-slate-950 border border-amber-500 shadow-sm' : ''
+                }`}
+                style={!isBingo ? {
+                  backgroundColor: isDarkMode ? '#1E293B' : '#FFFFFF',
+                  color: isDarkMode ? '#E2E8F0' : '#0F172A',
+                  border: isDarkMode ? '2px solid #334155' : '2px solid #E2E8F0',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                } : undefined}
+              >
                 {markedCount} / 25 LABELS
               </span>
             </div>
-            <div className="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-300/80 dark:border-slate-700 shadow-inner">
+            <div
+              className="w-full h-2.5 rounded-full overflow-hidden shadow-inner transition-colors"
+              style={{
+                backgroundColor: isDarkMode ? '#1E293B' : '#FFFFFF',
+                border: isDarkMode ? '2px solid #334155' : '2px solid #E2E8F0',
+              }}
+            >
               <div
                 className="h-full bg-gradient-to-r from-amber-400 via-rose-500 to-purple-600 transition-all duration-300 rounded-full"
                 style={{ width: `${pct}%` }}
@@ -135,19 +153,33 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
           </div>
 
           {/* 3. AGENDA TITLE / CARD (Max 2 lines) */}
-          <div className="w-full flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <div
+            className="w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl shadow-sm transition-colors"
+            style={{
+              backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
+              border: isDarkMode ? '2px solid #1E293B' : '2px solid #E2E8F0',
+            }}
+          >
             <div className="min-w-0 flex-1">
-              <span className="text-[8px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 block leading-none mb-0.5">
+              <span
+                className="text-[9px] font-black uppercase tracking-wider block leading-none mb-0.5"
+                style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
+              >
                 AGENDA
               </span>
-              <h3 className="font-display font-black text-xs text-slate-900 dark:text-white leading-tight line-clamp-2 truncate" title={movement.name}>
+              <h3
+                className="font-display font-black text-xs sm:text-sm leading-tight line-clamp-2 truncate"
+                style={{ color: isDarkMode ? '#FFFFFF' : '#0F172A' }}
+                title={movement.name}
+              >
                 {movement.name}
               </h3>
             </div>
             <button
               onClick={() => setShowRenameModal(true)}
               title="Set card title"
-              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-purple-600 transition-colors flex-shrink-0"
+              className="p-1.5 rounded-lg transition-colors flex-shrink-0"
+              style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
               aria-label="Edit card title"
             >
               <Edit2 className="w-3.5 h-3.5" />
@@ -168,20 +200,6 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
               ))}
             </div>
           </div>
-
-          {/* Victory Badge (opens popup modal) */}
-          {isBingo && (
-            <div className="flex items-center justify-center w-full py-0.5">
-              <button
-                onClick={() => setShowBingoModal(true)}
-                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-rose-500 to-purple-600 text-white font-black text-xs uppercase tracking-wide px-3.5 py-1 rounded-full victory-pulse shadow-sm hover:scale-105 transition-transform cursor-pointer"
-                title="Click to view Victory Popup"
-              >
-                <Trophy className="w-3.5 h-3.5" />
-                <span>BINGO! AUTOCRACY ACHIEVED 🏆</span>
-              </button>
-            </div>
-          )}
 
           {/* 5. REWORKED MOBILE ACTION CONTROLS */}
           <div className="w-full flex flex-col gap-2 pt-1">
@@ -317,20 +335,6 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
             </div>
           </div>
 
-          {/* Dedicated status badge slot */}
-          {isBingo && (
-            <div className="flex flex-col items-center justify-center gap-1 w-full py-0.5">
-              <button
-                onClick={() => setShowBingoModal(true)}
-                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-rose-500 to-purple-600 text-white font-black text-xs uppercase tracking-wide px-3.5 py-1 rounded-full victory-pulse hover:scale-105 transition-transform cursor-pointer shadow-sm"
-                title="Click to view Victory Popup"
-              >
-                <Trophy className="w-3.5 h-3.5" />
-                <span>BINGO! VICTORY</span>
-              </button>
-            </div>
-          )}
-
           {/* Action buttons — stacked column on desktop */}
           <div className="flex flex-col gap-2 w-full mt-auto">
             <button onClick={onShuffleBoard} className="btn-secondary w-full justify-center gap-1.5 py-2 px-2" title="Shuffle — new random 25 labels">
@@ -352,7 +356,9 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
 
       {/* Helper instruction caption */}
       <div className="text-[11px] font-bold text-slate-400 mt-1 text-center select-none">
-        💡 Tip: Click square to mark · Double-click for details
+        {isMobile
+          ? '💡 Tip: Tap square to mark · Long-press for details'
+          : '💡 Tip: Click square to mark · Double-click for details'}
       </div>
 
       {/* ── RENAME MODAL ────────────────────────────────────────── */}
@@ -459,8 +465,8 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
             </h3>
 
             {/* Description */}
-            <p className="text-xs font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-              You’ve successfully matched dissent labels for <span className="font-extrabold text-purple-600 dark:text-purple-400">"{movement.name}"</span>!
+            <p className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
+              We have achieved <span className="font-extrabold text-rose-600 dark:text-rose-400">{markedCount}/25</span> labels for <span className="font-extrabold text-purple-600 dark:text-purple-400">"{movement.name}"</span>, it's time for an international trip! ✈️
             </p>
 
             {/* Metrics */}

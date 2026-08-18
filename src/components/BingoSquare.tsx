@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { BingoSquareState } from '../types';
 import { Check } from 'lucide-react';
 import { LABEL_CATEGORIES } from '../data/labels';
@@ -31,14 +31,52 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
   const shortCat = CAT_SHORT[label.category] || label.category.slice(0, 4);
 
   const [isBouncing, setIsBouncing] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLongPressRef = useRef<boolean>(false);
 
   const triggerBounce = () => {
     setIsBouncing(true);
     setTimeout(() => setIsBouncing(false), 450);
   };
 
+  const handleTouchStart = () => {
+    isLongPressRef.current = false;
+    timerRef.current = setTimeout(() => {
+      isLongPressRef.current = true;
+      if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+        try {
+          navigator.vibrate?.(40);
+        } catch {
+          // Ignore vibration API errors on unsupported browsers
+        }
+      }
+      triggerBounce();
+      onOpenDetail();
+    }, 450); // 450ms long press threshold
+  };
+
+  const handleTouchEnd = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  const handleTouchMove = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
   // Right-click or long-press opens detail; left-click toggles mark
   const handleClick = (e: React.MouseEvent) => {
+    if (isLongPressRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      isLongPressRef.current = false;
+      return;
+    }
     triggerBounce();
     if (e.detail === 2) {
       // Double-click → open detail modal
@@ -66,9 +104,13 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
     <button
       type="button"
       onClick={handleClick}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchMove={handleTouchMove}
+      onTouchCancel={handleTouchEnd}
       onContextMenu={(e) => { e.preventDefault(); triggerBounce(); onOpenDetail(); }}
       onKeyDown={handleKeyDown}
-      title={`${label.shortLabel} — click to mark, double-click or right-click to inspect`}
+      title={`${label.shortLabel} — tap/click to mark, long-press or double-click to inspect`}
       className={`bingo-cell group ${marked ? 'is-marked' : ''} ${isBouncing ? 'cell-spring-bounce' : ''}`}
       aria-pressed={marked}
       aria-label={`${label.shortLabel}: ${marked ? 'marked' : 'not marked'}. Press I to inspect.`}
