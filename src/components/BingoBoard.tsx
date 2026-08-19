@@ -189,6 +189,70 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
             </button>
           </div>
 
+          {/* 3.5. MOBILE SCORECARD WIDGET */}
+          <div className="scorecard-widget w-full border-2 rounded-xl p-2.5 flex flex-col gap-2 shadow-sm transition-colors">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-1.5">
+              <div className="flex items-center gap-1.5">
+                <Trophy className="w-3.5 h-3.5 text-amber-500" />
+                <span className="scorecard-title text-[10px] font-black uppercase tracking-wider">
+                  SCORECARD
+                </span>
+              </div>
+              <span
+                className={`text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border ${
+                  markedCount === 0
+                    ? 'bg-emerald-500 text-white border-emerald-600'
+                    : markedCount <= 5
+                    ? 'bg-blue-500 text-white border-blue-600'
+                    : markedCount <= 12
+                    ? 'bg-amber-500 text-white border-amber-600'
+                    : markedCount <= 20
+                    ? 'bg-orange-500 text-white border-orange-600'
+                    : 'bg-rose-600 text-white border-rose-700'
+                }`}
+              >
+                {markedCount === 0
+                  ? 'CLEAN'
+                  : markedCount <= 5
+                  ? 'MILD'
+                  : markedCount <= 12
+                  ? 'ELEVATED'
+                  : markedCount <= 20
+                  ? 'HEAVY'
+                  : 'FULL PLAYBOOK'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-1.5 text-center">
+              <div className="scorecard-metric-box border p-1.5 rounded-lg flex flex-col items-center justify-center">
+                <span className="scorecard-num text-sm font-black block leading-tight truncate w-full">
+                  {markedCount * 100}
+                </span>
+                <span className="scorecard-label text-[8px] font-extrabold uppercase block tracking-wider truncate w-full">
+                  Score Pts
+                </span>
+              </div>
+
+              <div className="scorecard-metric-box border p-1.5 rounded-lg flex flex-col items-center justify-center">
+                <span className="scorecard-num-purple text-sm font-black block leading-tight truncate w-full">
+                  {isBingo ? 'BINGO!' : `${pct}%`}
+                </span>
+                <span className="scorecard-label text-[8px] font-extrabold uppercase block tracking-wider truncate w-full">
+                  Progress
+                </span>
+              </div>
+
+              <div className="scorecard-metric-box border p-1.5 rounded-lg flex flex-col items-center justify-center">
+                <span className="text-emerald-600 dark:text-emerald-400 text-sm font-black block leading-tight truncate w-full">
+                  {completedLinesCount}
+                </span>
+                <span className="scorecard-label text-[8px] font-extrabold uppercase block tracking-wider truncate w-full">
+                  Lines
+                </span>
+              </div>
+            </div>
+          </div>
+
           {/* 4. 5×5 BINGO BOARD */}
           <div className="bingo-board-card w-full">
             <div className="bingo-grid-wrapper">
