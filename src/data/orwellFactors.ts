@@ -141,7 +141,7 @@ export const ORWELL_FACTORS: OrwellFactor[] = [
       'Digital surveillance, facial recognition logging, and spyware deployment against activists',
       'Employment retaliation or university disciplinary actions against participating protesters'
     ],
-    status: 'NOT_FLAGGED',
+    status: 'INSUFFICIENT_EVIDENCE',
     reasoning: 'While specific high-profile NGO account freezes (under FCRA regulations) and Pegasus spyware allegations have been documented, widespread public protests, judicial challenges, and academic dissent continue to occur daily across Indian states without systemic mass retaliation against general citizens.',
     evidenceDate: '2026-02-20',
     sources: [
