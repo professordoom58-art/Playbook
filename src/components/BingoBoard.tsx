@@ -155,11 +155,11 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
             </div>
           </div>
 
-          {/* 3. SEPARATE FIXED-SIZE AGENDA & SCORECARD PILLS FOR MOBILE */}
-          <div className="w-full flex items-center gap-2">
+          {/* 3. SEPARATE FIXED-SIZE AGENDA & SCORECARD PILLS FOR MOBILE (Zero Overflow) */}
+          <div className="w-full flex items-center gap-1.5 max-w-full">
             {/* LEFT PILL: FIXED AGENDA TITLE & RENAME */}
             <div
-              className="flex-1 min-w-0 h-[42px] flex flex-col justify-center px-2.5 rounded-xl border-2 shadow-sm transition-colors"
+              className="flex-1 min-w-0 h-[40px] flex flex-col justify-center px-2 rounded-xl border-2 shadow-sm transition-colors"
               style={{
                 backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
                 borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
@@ -190,17 +190,17 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
               </h3>
             </div>
 
-            {/* RIGHT PILL: FIXED-WIDTH SCORECARD METRICS */}
+            {/* RIGHT PILL: COMPACT 172px SCORECARD METRICS */}
             <div
-              className="flex-none w-[204px] h-[42px] flex items-center justify-between px-2 rounded-xl border-2 shadow-sm transition-colors"
+              className="flex-none w-[172px] h-[40px] flex items-center justify-between px-1.5 rounded-xl border-2 shadow-sm transition-colors"
               style={{
                 backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
                 borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
               }}
             >
-              {/* Fixed-Width Status Level Badge */}
+              {/* Compact Status Level Badge */}
               <span
-                className={`w-[64px] h-5 flex items-center justify-center text-[7.5px] font-black leading-none rounded-full shadow-xs border text-center truncate flex-shrink-0 ${
+                className={`w-[54px] h-4.5 flex items-center justify-center text-[7px] font-black leading-none rounded-full shadow-xs border text-center truncate flex-shrink-0 ${
                   markedCount === 0
                     ? 'bg-emerald-500 text-white border-emerald-600'
                     : markedCount <= 5
@@ -231,34 +231,34 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                   ? 'ELEVATED'
                   : markedCount <= 20
                   ? 'HEAVY'
-                  : 'FULL PLAYBOOK'}
+                  : 'FULL'}
               </span>
 
-              {/* Fixed-Width Metric Boxes */}
+              {/* Compact Metric Boxes */}
               <div className="flex items-center gap-1 flex-shrink-0">
-                <div className="scorecard-metric-box border w-[36px] h-[30px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
-                  <span className="scorecard-num text-[11px] font-black block leading-none">
+                <div className="scorecard-metric-box border w-[32px] h-[28px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
+                  <span className="scorecard-num text-[10px] font-black block leading-none">
                     {markedCount * 100}
                   </span>
-                  <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                  <span className="scorecard-label text-[6.5px] font-extrabold uppercase block leading-none mt-0.5">
                     PTS
                   </span>
                 </div>
 
-                <div className="scorecard-metric-box border w-[38px] h-[30px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
-                  <span className="scorecard-num-purple text-[10.5px] font-black block leading-none">
+                <div className="scorecard-metric-box border w-[34px] h-[28px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
+                  <span className="scorecard-num-purple text-[10px] font-black block leading-none">
                     {isBingo ? 'BINGO' : `${pct}%`}
                   </span>
-                  <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                  <span className="scorecard-label text-[6.5px] font-extrabold uppercase block leading-none mt-0.5">
                     PROG
                   </span>
                 </div>
 
-                <div className="scorecard-metric-box border w-[32px] h-[30px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
-                  <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-black block leading-none">
+                <div className="scorecard-metric-box border w-[28px] h-[28px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
+                  <span className="text-emerald-600 dark:text-emerald-400 text-[10px] font-black block leading-none">
                     {completedLinesCount}
                   </span>
-                  <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                  <span className="scorecard-label text-[6.5px] font-extrabold uppercase block leading-none mt-0.5">
                     LINES
                   </span>
                 </div>
