@@ -198,20 +198,20 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                 borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
               }}
             >
-              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[42px]">
-                <span className="scorecard-num text-[11px] font-black block leading-none">
+              <div className="scorecard-metric-box border py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] w-[46px] min-w-[46px] max-w-[46px] flex-shrink-0">
+                <span className="scorecard-num text-[11px] font-black block leading-none truncate w-full px-0.5">
                   {markedCount * 100}
                 </span>
-                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5 truncate w-full px-0.5">
                   PTS
                 </span>
               </div>
 
-              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[48px]">
-                <span className="scorecard-num-purple text-[11px] font-black block leading-none">
+              <div className="scorecard-metric-box border py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] w-[46px] min-w-[46px] max-w-[46px] flex-shrink-0">
+                <span className="scorecard-num-purple text-[10.5px] font-black block leading-none truncate w-full px-0.5">
                   {isBingo ? 'BINGO' : `${pct}%`}
                 </span>
-                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5 truncate w-full px-0.5">
                   PROG
                 </span>
               </div>
