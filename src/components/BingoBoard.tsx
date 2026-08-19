@@ -190,78 +190,39 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
               </h3>
             </div>
 
-            {/* RIGHT PILL: COMPACT 172px SCORECARD METRICS */}
+            {/* RIGHT PILL: CLEAN & SPACIOUS SCORECARD METRICS */}
             <div
-              className="flex-none w-[172px] h-[40px] flex items-center justify-between px-1.5 rounded-xl border-2 shadow-sm transition-colors"
+              className="flex-shrink-0 h-[40px] flex items-center gap-1.5 px-2 rounded-xl border-2 shadow-sm transition-colors"
               style={{
                 backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
                 borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
               }}
             >
-              {/* Compact Status Level Badge */}
-              <span
-                className={`w-[54px] h-4.5 flex items-center justify-center text-[7px] font-black leading-none rounded-full shadow-xs border text-center truncate flex-shrink-0 ${
-                  markedCount === 0
-                    ? 'bg-emerald-500 text-white border-emerald-600'
-                    : markedCount <= 5
-                    ? 'bg-blue-500 text-white border-blue-600'
-                    : markedCount <= 12
-                    ? 'bg-amber-500 text-white border-amber-600'
-                    : markedCount <= 20
-                    ? 'bg-orange-500 text-white border-orange-600'
-                    : 'bg-rose-600 text-white border-rose-700'
-                }`}
-                title={
-                  markedCount === 0
-                    ? 'CLEAN'
-                    : markedCount <= 5
-                    ? 'MILD'
-                    : markedCount <= 12
-                    ? 'ELEVATED'
-                    : markedCount <= 20
-                    ? 'HEAVY'
-                    : 'FULL PLAYBOOK'
-                }
-              >
-                {markedCount === 0
-                  ? 'CLEAN'
-                  : markedCount <= 5
-                  ? 'MILD'
-                  : markedCount <= 12
-                  ? 'ELEVATED'
-                  : markedCount <= 20
-                  ? 'HEAVY'
-                  : 'FULL'}
-              </span>
+              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[42px]">
+                <span className="scorecard-num text-[11px] font-black block leading-none">
+                  {markedCount * 100}
+                </span>
+                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                  PTS
+                </span>
+              </div>
 
-              {/* Compact Metric Boxes */}
-              <div className="flex items-center gap-1 flex-shrink-0">
-                <div className="scorecard-metric-box border w-[32px] h-[28px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
-                  <span className="scorecard-num text-[10px] font-black block leading-none">
-                    {markedCount * 100}
-                  </span>
-                  <span className="scorecard-label text-[6.5px] font-extrabold uppercase block leading-none mt-0.5">
-                    PTS
-                  </span>
-                </div>
+              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[44px]">
+                <span className="scorecard-num-purple text-[11px] font-black block leading-none">
+                  {isBingo ? 'BINGO' : `${pct}%`}
+                </span>
+                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                  PROG
+                </span>
+              </div>
 
-                <div className="scorecard-metric-box border w-[34px] h-[28px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
-                  <span className="scorecard-num-purple text-[10px] font-black block leading-none">
-                    {isBingo ? 'BINGO' : `${pct}%`}
-                  </span>
-                  <span className="scorecard-label text-[6.5px] font-extrabold uppercase block leading-none mt-0.5">
-                    PROG
-                  </span>
-                </div>
-
-                <div className="scorecard-metric-box border w-[28px] h-[28px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
-                  <span className="text-emerald-600 dark:text-emerald-400 text-[10px] font-black block leading-none">
-                    {completedLinesCount}
-                  </span>
-                  <span className="scorecard-label text-[6.5px] font-extrabold uppercase block leading-none mt-0.5">
-                    LINES
-                  </span>
-                </div>
+              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[36px]">
+                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-black block leading-none">
+                  {completedLinesCount}
+                </span>
+                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                  LINES
+                </span>
               </div>
             </div>
           </div>
