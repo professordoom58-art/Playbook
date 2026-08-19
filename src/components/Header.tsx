@@ -44,8 +44,8 @@ export const Header: React.FC<HeaderProps> = ({
         >
           <div className="w-8 h-8 bg-amber-400 rounded-xl border-2 border-amber-500
             flex items-center justify-center shadow-[0_2px_0_0_#D97706]
-            group-hover:scale-105 transition-transform">
-            <Target className="w-4 h-4 text-slate-950 stroke-[2.5]" />
+            group-hover:scale-105 transition-transform overflow-hidden">
+            <img src="/LOGO.png" alt="Playbook Bingo Logo" className="w-full h-full object-cover" />
           </div>
           <span className="font-display font-black text-lg tracking-tight text-slate-900 dark:text-white leading-none hidden sm:block">
             PLAYBOOK BINGO

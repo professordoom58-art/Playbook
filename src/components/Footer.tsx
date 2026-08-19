@@ -19,8 +19,8 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Brand Column */}
         <div className="md:col-span-5 space-y-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-400 rounded-2xl border-2 border-amber-600 flex items-center justify-center text-slate-950 font-black">
-              🎯
+            <div className="w-10 h-10 bg-amber-400 rounded-2xl border-2 border-amber-600 flex items-center justify-center text-slate-950 font-black overflow-hidden">
+              <img src="/LOGO.png" alt="Playbook Bingo Logo" className="w-full h-full object-cover" />
             </div>
             <span className="font-display font-black text-2xl text-white tracking-tight">
               PLAYBOOK BINGO
