@@ -314,13 +314,13 @@ export function createShareCardCanvasElement(
     const words = square.label.shortLabel.trim().split(/\s+/);
     const longestWord = Math.max(...words.map((w) => w.length));
 
-    let fontSize = 14;
+    let fontSize = 15;
     if (longestWord >= 11) {
-      fontSize = 10.5;
-    } else if (longestWord >= 9) {
       fontSize = 11.5;
-    } else if (longestWord >= 7) {
+    } else if (longestWord >= 9) {
       fontSize = 12.5;
+    } else if (longestWord >= 7) {
+      fontSize = 13.5;
     }
 
     ctx.font = `900 ${fontSize}px Outfit, sans-serif`;
