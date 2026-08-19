@@ -507,64 +507,63 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 py-10 px-4 sm:px-8
-        border-t-4 border-amber-400 mt-auto">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row
-          items-center justify-between gap-6">
+      <footer className="bg-slate-900 text-slate-400 py-8 px-4 sm:px-8 border-t-4 border-amber-400 mt-auto">
+        <div className="max-w-6xl mx-auto flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-amber-400 rounded-xl border border-amber-500
-              flex items-center justify-center text-slate-950 font-black text-lg">
-              🎯
-            </div>
-            <div>
-              <span className="font-display font-black text-xl text-white tracking-tight block leading-none">
+            {/* Logo & Name (No subtext) */}
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="w-9 h-9 bg-amber-400 rounded-xl border border-amber-500 flex items-center justify-center text-slate-950 font-black text-lg">
+                🎯
+              </div>
+              <span className="font-display font-black text-xl text-white tracking-tight leading-none uppercase">
                 PLAYBOOK BINGO
               </span>
-              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
-                GOVERNMENT'S PLAYBOOK BINGO
-              </span>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-4 w-full md:w-auto">
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-extrabold text-slate-300">
-              <button onClick={onOpenHowItWorks} className="hover:text-amber-400 transition-colors">
-                How It Works
-              </button>
-              <button onClick={onOpenMethodology} className="hover:text-amber-400 transition-colors">
-                Who is George Orwell?
-              </button>
-              <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors">
-                Disclaimer
-              </button>
             </div>
 
-            {/* 50/50 Equal-width action buttons: PLAY BINGO (Left) & ABOUT ME (Right) */}
-            <div className="grid grid-cols-2 gap-2.5 w-full max-w-sm sm:max-w-md">
-              <button
-                onClick={onPlayBingo}
-                className="btn-primary w-full inline-flex items-center justify-center gap-2 py-3 px-2 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform"
-              >
-                <Play className="w-4 h-4 fill-slate-950 stroke-none flex-shrink-0" />
-                <span className="truncate">PLAY BINGO</span>
-              </button>
-              {onOpenAboutMe && (
-                <button
-                  onClick={onOpenAboutMe}
-                  className="bg-purple-600 hover:bg-purple-500 text-white border-2 border-purple-400 w-full inline-flex items-center justify-center gap-1.5 py-3 px-2 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer"
-                >
-                  <Sparkles className="w-4 h-4 text-amber-300 flex-shrink-0" />
-                  <span className="truncate">ABOUT ME</span>
+            {/* Navigation links & 50/50 Action buttons */}
+            <div className="flex flex-col items-center gap-4 w-full md:w-auto">
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-black uppercase text-slate-300 tracking-wider">
+                <button onClick={onOpenHowItWorks} className="hover:text-amber-400 transition-colors uppercase">
+                  HOW IT WORKS
                 </button>
-              )}
+                <button onClick={onOpenMethodology} className="hover:text-amber-400 transition-colors uppercase">
+                  WHO IS GEORGE ORWELL?
+                </button>
+                <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors uppercase">
+                  DISCLAIMER
+                </button>
+              </div>
+
+              {/* 50/50 Equal-width action buttons: PLAY BINGO (Left) & ABOUT ME (Right) */}
+              <div className="grid grid-cols-2 gap-2.5 w-full max-w-xs sm:max-w-sm">
+                <button
+                  onClick={onPlayBingo}
+                  className="btn-primary w-full inline-flex items-center justify-center gap-2 py-2.5 px-2 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform uppercase"
+                >
+                  <Play className="w-4 h-4 fill-slate-950 stroke-none flex-shrink-0" />
+                  <span className="truncate">PLAY BINGO</span>
+                </button>
+                {onOpenAboutMe && (
+                  <button
+                    onClick={onOpenAboutMe}
+                    className="bg-purple-600 hover:bg-purple-500 text-white border-2 border-purple-400 w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-2 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer uppercase"
+                  >
+                    <Sparkles className="w-4 h-4 text-amber-300 flex-shrink-0" />
+                    <span className="truncate">ABOUT ME</span>
+                  </button>
+                )}
+              </div>
             </div>
+
           </div>
 
-          <span className="text-[11px] text-slate-500 font-semibold">
-            © 2026 TUNG TUNG TUNG SAHUR(TRIPLE T)
-          </span>
-
+          {/* Middle Bottom Copyright Text */}
+          <div className="w-full text-center pt-4 border-t border-slate-800/80">
+            <span className="text-[11px] text-slate-500 font-extrabold uppercase tracking-wider block text-center">
+              © 2026 TUNG TUNG TUNG SAHUR(TRIPLE T)
+            </span>
+          </div>
         </div>
       </footer>
 
