@@ -310,12 +310,24 @@ export function createShareCardCanvasElement(
     // Label Text (Centred in cell)
     ctx.textAlign = 'center';
     ctx.fillStyle = square.marked ? colorMarkedText : colorUnmarkedText;
-    ctx.font = FONT_LABEL;
+
+    const words = square.label.shortLabel.trim().split(/\s+/);
+    const longestWord = Math.max(...words.map((w) => w.length));
+
+    let fontSize = 15;
+    if (longestWord >= 12) {
+      fontSize = 12.5;
+    } else if (longestWord >= 10) {
+      fontSize = 13.5;
+    } else if (longestWord >= 8) {
+      fontSize = 14;
+    }
+
+    ctx.font = `900 ${fontSize}px Outfit, sans-serif`;
 
     const textMaxW = CELL - 16;
     const wrappedLines = wrapText(ctx, square.label.shortLabel, textMaxW);
-
-    const LINE_H     = 20;
+    const LINE_H     = fontSize * 1.15;
     const totalTextH = wrappedLines.length * LINE_H;
     const textStartY = y + CELL / 2 - totalTextH / 2 + LINE_H * 0.76;
 

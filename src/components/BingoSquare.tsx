@@ -118,7 +118,7 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
       {/* TOP ROW: category badge + check or code */}
       <div className="w-full flex items-center justify-between gap-0.5 flex-shrink-0 h-3 sm:h-3.5 overflow-hidden">
         <span
-          className={`cat-badge-${label.category} text-[6.5px] sm:text-[7px] font-black uppercase tracking-wide px-0.5 sm:px-1 py-px rounded leading-none truncate max-w-[60%] flex-shrink-0 transition-opacity duration-150 ${
+          className={`cat-badge-${label.category} text-[6.5px] sm:text-[7.5px] font-black uppercase tracking-wide px-1 py-0.5 rounded leading-none truncate max-w-[60%] flex-shrink-0 transition-opacity duration-150 ${
             marked ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'
           }`}
         >
@@ -131,37 +131,55 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
               <Check className="w-2 h-2 text-white stroke-[3.5]" />
             </span>
           ) : (
-            <span className="text-[6.5px] sm:text-[7px] font-bold text-slate-300 dark:text-slate-500 leading-none opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
+            <span className="text-[6.5px] sm:text-[7.5px] font-bold text-slate-300 dark:text-slate-500 leading-none opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
               {label.code}
             </span>
           )}
         </div>
       </div>
 
-      {/* CENTER: THE LABEL — dominant element of the cell */}
-      <div className="flex-1 flex items-center justify-center w-full px-0.5 overflow-hidden my-0.5 min-h-0">
-        <span
-          className={`
-            font-black uppercase text-center w-full block
-            transition-colors duration-150
-            ${marked ? 'text-amber-950' : 'text-slate-950'}
-          `}
-          style={{
-            fontSize: 'clamp(9px, 2.5vw, 13.5px)',
-            lineHeight: 1.05,
-            letterSpacing: '-0.02em',
-            hyphens: 'none',
-            WebkitHyphens: 'none',
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-          } as React.CSSProperties}
-        >
-          {label.shortLabel}
-        </span>
+      {/* CENTER: THE LABEL — dominant, unified element of the cell */}
+      <div className="flex-1 flex items-center justify-center w-full px-0.5 my-0.5 min-h-0 overflow-hidden">
+        {(() => {
+          const words = label.shortLabel.trim().split(/\s+/);
+          const longestWord = Math.max(...words.map((w) => w.length));
+
+          // Smooth, optically balanced font scaling across the grid
+          let fontSize = 'clamp(10.2px, 3.0vw, 12.8px)';
+          if (longestWord >= 12) {
+            fontSize = 'clamp(8.0px, 2.2vw, 10.5px)';
+          } else if (longestWord >= 10) {
+            fontSize = 'clamp(8.6px, 2.5vw, 11.2px)';
+          } else if (longestWord >= 8) {
+            fontSize = 'clamp(9.5px, 2.8vw, 12.0px)';
+          }
+
+          return (
+            <span
+              className={`
+                font-black uppercase text-center w-full block
+                transition-colors duration-150
+                ${marked ? 'text-amber-950' : 'text-slate-950'}
+              `}
+              style={{
+                fontSize,
+                lineHeight: 1.05,
+                letterSpacing: '-0.01em',
+                hyphens: 'none',
+                WebkitHyphens: 'none',
+                wordBreak: 'keep-all',
+                overflowWrap: 'normal',
+                whiteSpace: 'normal',
+              } as React.CSSProperties}
+            >
+              {label.shortLabel}
+            </span>
+          );
+        })()}
       </div>
 
       {/* BOTTOM ROW: evidence indicator + inspect hint */}
-      <div className="w-full flex items-end justify-between flex-shrink-0">
+      <div className="w-full flex items-end justify-between flex-shrink-0 h-2 sm:h-2.5">
         {hasEvidence ? (
           <span className="text-[7px] font-black text-emerald-600 leading-tight">
             📎 {evidence.length}
