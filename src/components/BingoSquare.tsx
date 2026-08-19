@@ -118,20 +118,20 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
       {/* TOP ROW: category badge + check or code */}
       <div className="w-full flex items-center justify-between gap-0.5 flex-shrink-0 h-3 sm:h-3.5 overflow-hidden">
         <span
-          className={`cat-badge-${label.category} text-[6.5px] sm:text-[7.5px] font-black uppercase tracking-wide px-1 py-0.5 rounded leading-none truncate max-w-[65%] flex-shrink-0 transition-opacity duration-150 ${
-            marked ? 'opacity-100 shadow-xs' : 'opacity-65 sm:group-hover:opacity-100'
+          className={`cat-badge-${label.category} text-[6.5px] sm:text-[7.5px] font-black uppercase tracking-wide px-1 py-0.5 rounded leading-none truncate max-w-[60%] flex-shrink-0 transition-opacity duration-150 ${
+            marked ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'
           }`}
         >
           {shortCat}
         </span>
 
-        <div className="w-3.5 h-3.5 flex items-center justify-end flex-shrink-0">
+        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex items-center justify-center flex-shrink-0">
           {marked ? (
-            <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 shadow-xs">
-              <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
+            <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+              <Check className="w-2 h-2 text-white stroke-[3.5]" />
             </span>
           ) : (
-            <span className="text-[6.5px] sm:text-[7.5px] font-bold text-slate-400 dark:text-slate-500 leading-none opacity-40 sm:group-hover:opacity-100 transition-opacity duration-150">
+            <span className="text-[6.5px] sm:text-[7.5px] font-bold text-slate-300 dark:text-slate-500 leading-none opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
               {label.code}
             </span>
           )}
@@ -144,22 +144,22 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
           const words = label.shortLabel.trim().split(/\s+/);
           const longestWord = Math.max(...words.map((w) => w.length));
 
-          // Smooth, optically balanced font scaling across the grid
-          let fontSize = 'clamp(9.0px, 2.8vw, 12.0px)';
+          // Robust, optically balanced font scaling to fit long words in narrow 5x5 grid cells
+          let fontSize = 'clamp(8.8px, 2.7vw, 12.0px)';
           let letterSpacing = '-0.02em';
           let lineHeight = '1.02';
 
           if (longestWord >= 11) {
-            fontSize = 'clamp(7.0px, 2.1vw, 9.0px)';
-            letterSpacing = '-0.035em';
+            fontSize = 'clamp(6.2px, 1.8vw, 8.2px)';
+            letterSpacing = '-0.04em';
           } else if (longestWord >= 9) {
-            fontSize = 'clamp(7.5px, 2.3vw, 9.8px)';
-            letterSpacing = '-0.03em';
+            fontSize = 'clamp(6.8px, 2.1vw, 9.0px)';
+            letterSpacing = '-0.035em';
           } else if (longestWord >= 7) {
-            fontSize = 'clamp(8.0px, 2.5vw, 10.5px)';
-            letterSpacing = '-0.025em';
+            fontSize = 'clamp(7.5px, 2.4vw, 10.0px)';
+            letterSpacing = '-0.03em';
           } else if (longestWord >= 5) {
-            fontSize = 'clamp(8.5px, 2.7vw, 11.2px)';
+            fontSize = 'clamp(8.2px, 2.6vw, 11.0px)';
             letterSpacing = '-0.02em';
           }
 
