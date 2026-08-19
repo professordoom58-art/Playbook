@@ -37,7 +37,7 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
               TODAY'S INDIA
             </h4>
             <p className="text-[10px] text-slate-400 font-semibold italic leading-tight">
-              100% Satire &bull; Just here for the laughs
+              what did 6 say to 7? 67
             </p>
           </div>
 
