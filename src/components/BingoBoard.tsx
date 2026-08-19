@@ -155,51 +155,46 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
             </div>
           </div>
 
-          {/* 3. AGENDA TITLE / CARD (Max 2 lines) */}
+          {/* 3. COMBINED AGENDA & SCORECARD HORIZONTAL BAR FOR MOBILE */}
           <div
-            className="w-full flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl shadow-sm transition-colors"
+            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-xl shadow-sm transition-colors border-2"
             style={{
               backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
-              border: isDarkMode ? '2px solid #1E293B' : '2px solid #E2E8F0',
+              borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
             }}
           >
-            <div className="min-w-0 flex-1">
-              <span
-                className="text-[9px] font-black uppercase tracking-wider block leading-none mb-0.5"
-                style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
-              >
-                AGENDA
-              </span>
+            {/* LEFT SIDE: AGENDA TITLE & RENAME */}
+            <div className="min-w-0 flex-1 flex flex-col justify-center pr-2 border-r border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-1">
+                <span
+                  className="text-[8px] font-black uppercase tracking-wider block leading-none"
+                  style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
+                >
+                  AGENDA
+                </span>
+                <button
+                  onClick={() => setShowRenameModal(true)}
+                  title="Edit card title"
+                  className="p-0.5 rounded transition-colors text-slate-400 hover:text-purple-600 flex-shrink-0"
+                  aria-label="Edit card title"
+                >
+                  <Edit2 className="w-3 h-3" />
+                </button>
+              </div>
               <h3
-                className="font-display font-black text-xs sm:text-sm leading-tight line-clamp-2 truncate"
+                className="font-display font-black text-xs leading-tight truncate mt-0.5"
                 style={{ color: isDarkMode ? '#FFFFFF' : '#0F172A' }}
                 title={movement.name}
               >
                 {movement.name}
               </h3>
             </div>
-            <button
-              onClick={() => setShowRenameModal(true)}
-              title="Set card title"
-              className="p-1.5 rounded-lg transition-colors flex-shrink-0"
-              style={{ color: isDarkMode ? '#94A3B8' : '#64748B' }}
-              aria-label="Edit card title"
-            >
-              <Edit2 className="w-3.5 h-3.5" />
-            </button>
-          </div>
 
-          {/* 3.5. MOBILE SCORECARD WIDGET */}
-          <div className="scorecard-widget w-full border-2 rounded-xl p-2.5 flex flex-col gap-2 shadow-sm transition-colors">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-1.5">
-              <div className="flex items-center gap-1.5">
-                <Trophy className="w-3.5 h-3.5 text-amber-500" />
-                <span className="scorecard-title text-[10px] font-black uppercase tracking-wider">
-                  SCORECARD
-                </span>
-              </div>
+            {/* RIGHT SIDE: SCORECARD COMPACT METRICS */}
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              {/* Status Level Badge */}
               <span
-                className={`text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border ${
+                className={`text-[8px] font-black px-1.5 py-0.5 rounded-full shadow-xs border ${
                   markedCount === 0
                     ? 'bg-emerald-500 text-white border-emerald-600'
                     : markedCount <= 5
@@ -221,34 +216,35 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                   ? 'HEAVY'
                   : 'FULL PLAYBOOK'}
               </span>
-            </div>
 
-            <div className="grid grid-cols-3 gap-1.5 text-center">
-              <div className="scorecard-metric-box border p-1.5 rounded-lg flex flex-col items-center justify-center">
-                <span className="scorecard-num text-sm font-black block leading-tight truncate w-full">
-                  {markedCount * 100}
-                </span>
-                <span className="scorecard-label text-[8px] font-extrabold uppercase block tracking-wider truncate w-full">
-                  Score Pts
-                </span>
-              </div>
+              {/* Metric Boxes */}
+              <div className="flex items-center gap-1">
+                <div className="scorecard-metric-box border px-1.5 py-0.5 rounded-lg text-center min-w-[34px] flex flex-col items-center justify-center">
+                  <span className="scorecard-num text-[11px] font-black block leading-none">
+                    {markedCount * 100}
+                  </span>
+                  <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                    PTS
+                  </span>
+                </div>
 
-              <div className="scorecard-metric-box border p-1.5 rounded-lg flex flex-col items-center justify-center">
-                <span className="scorecard-num-purple text-sm font-black block leading-tight truncate w-full">
-                  {isBingo ? 'BINGO!' : `${pct}%`}
-                </span>
-                <span className="scorecard-label text-[8px] font-extrabold uppercase block tracking-wider truncate w-full">
-                  Progress
-                </span>
-              </div>
+                <div className="scorecard-metric-box border px-1.5 py-0.5 rounded-lg text-center min-w-[34px] flex flex-col items-center justify-center">
+                  <span className="scorecard-num-purple text-[11px] font-black block leading-none">
+                    {isBingo ? 'BINGO' : `${pct}%`}
+                  </span>
+                  <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                    PROG
+                  </span>
+                </div>
 
-              <div className="scorecard-metric-box border p-1.5 rounded-lg flex flex-col items-center justify-center">
-                <span className="text-emerald-600 dark:text-emerald-400 text-sm font-black block leading-tight truncate w-full">
-                  {completedLinesCount}
-                </span>
-                <span className="scorecard-label text-[8px] font-extrabold uppercase block tracking-wider truncate w-full">
-                  Lines
-                </span>
+                <div className="scorecard-metric-box border px-1.5 py-0.5 rounded-lg text-center min-w-[30px] flex flex-col items-center justify-center">
+                  <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-black block leading-none">
+                    {completedLinesCount}
+                  </span>
+                  <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
+                    LINES
+                  </span>
+                </div>
               </div>
             </div>
           </div>
