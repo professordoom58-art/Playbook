@@ -100,7 +100,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <button onClick={onOpenMethodology}
               className="px-3.5 py-2 rounded-xl transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
               style={{ color: isDarkMode ? '#E2E8F0' : '#334155' }}>
-              Was Orwell Right?
+              Who is George Orwell?
             </button>
             <button onClick={() => scrollToSection('orwell-info')}
               className="px-3.5 py-2 rounded-xl transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -530,7 +530,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               How It Works
             </button>
             <button onClick={onOpenMethodology} className="hover:text-amber-400 transition-colors">
-              Was Orwell Right?
+              Who is George Orwell?
             </button>
             <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors">
               Disclaimer

@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button onClick={onOpenMethodology}
             className="btn-ghost flex items-center gap-1.5">
             <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
-            Was Orwell Right?
+            Who is George Orwell?
           </button>
         </nav>
 

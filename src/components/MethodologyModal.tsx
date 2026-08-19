@@ -14,7 +14,7 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
         {/* Header */}
         <div className="p-5 border-b-2 border-slate-100 bg-rose-50/40 flex items-center justify-between">
           <div>
-            <h3 className="font-display font-black text-xl text-slate-900 leading-tight">Was Orwell Right?</h3>
+            <h3 className="font-display font-black text-xl text-slate-900 leading-tight">Who is George Orwell?</h3>
             <p className="text-xs font-semibold text-slate-500 mt-0.5">7 recurring themes from Orwell's classic books turned into a fun checklist.</p>
           </div>
           <button onClick={onClose} className="p-2 rounded-xl text-slate-400 hover:bg-slate-200 hover:text-slate-700">

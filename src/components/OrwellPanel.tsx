@@ -31,7 +31,7 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
           <div>
             <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider
               text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full mb-1">
-              <Eye className="w-2.5 h-2.5" /> WAS ORWELL RIGHT?
+              <Eye className="w-2.5 h-2.5" /> WHO IS GEORGE ORWELL?
             </span>
             <h4 className="text-xs font-black uppercase tracking-wide mt-1 mb-0.5 text-slate-950 dark:text-white" style={{ color: 'inherit' }}>
               TODAY'S INDIA
@@ -68,7 +68,7 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
 
         <button onClick={onOpenMethodology} className="btn-secondary w-full justify-center gap-1.5">
           <BookOpen className="w-3 h-3 text-emerald-600" />
-          <span>Was Orwell Right?</span>
+          <span>Who is George Orwell?</span>
         </button>
       </div>
 
