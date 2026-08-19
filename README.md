@@ -30,25 +30,13 @@ The Orwell section is an editorial framework inspired by themes in George Orwell
 
 Built with React, TypeScript, Vite, Tailwind CSS, Lucide React, and HTML Canvas for PNG export.
 
-## Quick Start
+## Political Joke
 
-Install dependencies:
+Why do politicians love clean laundry?
+Because they love putting a new spin on everything.
 
-```bash
-npm install
-```
-
-Run dev server:
-
-```bash
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
+Or as Mark Twain famously wrote:
+"If voting made any difference, they would not let us do it."
 
 ## Creator
 
