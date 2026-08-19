@@ -268,13 +268,11 @@ html.dark .bingo-vertical-title {
 
 /* The board grid outer card — fits tightly around the square grid */
 .bingo-board-card {
-  height: 100%;
-  width: auto;
+  width: 100%;
+  max-width: 580px;
   aspect-ratio: 1 / 1;
-  max-height: 100%;
-  max-width: 100%;
+  height: auto;
   flex: 0 1 auto;
-  flex-shrink: 0;
   align-self: center;
   display: flex;
   align-items: center;
@@ -284,7 +282,6 @@ html.dark .bingo-vertical-title {
   border-radius: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   padding: 10px;
-  overflow: hidden;
   box-sizing: border-box;
 }
 
