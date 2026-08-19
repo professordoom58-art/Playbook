@@ -27,7 +27,6 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
 }) => {
   const { label, marked, evidence } = square;
   const hasEvidence = evidence.length > 0;
-  const catInfo = LABEL_CATEGORIES[label.category];
   const shortCat = CAT_SHORT[label.category] || label.category.slice(0, 4);
 
   const [isBouncing, setIsBouncing] = useState(false);
@@ -52,7 +51,7 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
       }
       triggerBounce();
       onOpenDetail();
-    }, 450); // 450ms long press threshold
+    }, 450);
   };
 
   const handleTouchEnd = () => {
@@ -69,7 +68,6 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
     }
   };
 
-  // Right-click or long-press opens detail; left-click toggles mark
   const handleClick = (e: React.MouseEvent) => {
     if (isLongPressRef.current) {
       e.preventDefault();
@@ -79,11 +77,8 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
     }
     triggerBounce();
     if (e.detail === 2) {
-      // Double-click → open detail modal
-      e.preventDefault();
       onOpenDetail();
     } else {
-      // Single click → toggle mark
       onToggleMark();
     }
   };
@@ -100,6 +95,50 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
     }
   };
 
+  // Determine typography profile based on word count & character length
+  const words = label.shortLabel.trim().split(/\s+/);
+  const wordCount = words.length;
+  const longestWord = Math.max(...words.map((w) => w.length));
+  const isSingleWord = wordCount === 1;
+
+  let fontSize: string;
+  let letterSpacing = '-0.02em';
+  let lineHeight = '1.04';
+
+  if (isSingleWord) {
+    // Single-word labels: ALWAYS 1 line, NEVER split or break words
+    if (longestWord >= 11) {
+      // 11-12 chars (e.g. PROPAGANDIST, COCKROACHES)
+      fontSize = 'clamp(7.8px, 1.85vw + 1.8px, 12.8px)';
+      letterSpacing = '-0.038em';
+    } else if (longestWord >= 9) {
+      // 9-10 chars (e.g. COMMUNIST, EXTREMIST, SEPARATIST, KHALISTANI, SEDITIOUS, ECOSYSTEM)
+      fontSize = 'clamp(8.8px, 2.1vw + 2.0px, 14.2px)';
+      letterSpacing = '-0.03em';
+    } else {
+      // <= 8 chars (e.g. MAOIST, APPEASER, JIHADI, NAXAL, FRANDS)
+      fontSize = 'clamp(9.5px, 2.3vw + 2.2px, 15.5px)';
+      letterSpacing = '-0.02em';
+    }
+  } else {
+    // Multi-word phrases: Max 2 lines balanced, NEVER break inside words
+    if (longestWord >= 11) {
+      // e.g. MINORITY APPEASEMENT
+      fontSize = 'clamp(8.2px, 1.95vw + 2.0px, 13.5px)';
+      letterSpacing = '-0.025em';
+    } else {
+      // e.g. KHAN MARKET GANG, WESTERN STOOGE, CHINESE AGENT, PAKISTAN BACKED
+      fontSize = 'clamp(9.2px, 2.2vw + 2.2px, 14.8px)';
+      letterSpacing = '-0.02em';
+    }
+  }
+
+  // Format 3-word phrases like "KHAN MARKET GANG" cleanly into 2 balanced lines
+  let displayLabel = label.shortLabel;
+  if (wordCount === 3 && words[0].length + words[1].length <= 12) {
+    displayLabel = `${words[0]} ${words[1]}\n${words[2]}`;
+  }
+
   return (
     <button
       type="button"
@@ -115,99 +154,56 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
       aria-pressed={marked}
       aria-label={`${label.shortLabel}: ${marked ? 'marked' : 'not marked'}. Press I to inspect.`}
     >
-      {/* TOP ROW: category badge + check or code */}
-      <div className="w-full flex items-center justify-between gap-0.5 flex-shrink-0 h-3 sm:h-3.5 overflow-hidden">
+      {/* TOP ROW: Unobtrusive category badge & ID code */}
+      <div className="w-full flex items-center justify-between gap-0.5 flex-shrink-0 h-3 sm:h-3.5 px-0.5 overflow-hidden">
         <span
-          className={`cat-badge-${label.category} text-[6.5px] sm:text-[7.5px] font-black uppercase tracking-wide px-1 py-0.5 rounded leading-none truncate max-w-[60%] flex-shrink-0 transition-opacity duration-150 ${
+          className={`cat-badge-${label.category} text-[6px] sm:text-[7.5px] font-black uppercase tracking-tight px-1 py-0.5 rounded leading-none truncate max-w-[55%] flex-shrink-0 transition-opacity duration-150 ${
             marked ? 'opacity-100' : 'opacity-0 sm:group-hover:opacity-100'
           }`}
         >
           {shortCat}
         </span>
 
-        <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex items-center justify-center flex-shrink-0">
+        <div className="w-3.5 h-3.5 flex items-center justify-end flex-shrink-0">
           {marked ? (
-            <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
-              <Check className="w-2 h-2 text-white stroke-[3.5]" />
+            <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 shadow-xs">
+              <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
             </span>
           ) : (
-            <span className="text-[6.5px] sm:text-[7.5px] font-bold text-slate-300 dark:text-slate-500 leading-none opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
+            <span className="text-[6px] sm:text-[7.5px] font-bold text-slate-300 dark:text-slate-500 leading-none opacity-0 sm:group-hover:opacity-100 transition-opacity duration-150">
               {label.code}
             </span>
           )}
         </div>
       </div>
 
-      {/* CENTER: THE LABEL — dominant, unified element of the cell */}
-      <div className="flex-1 flex items-center justify-center w-full px-0.5 my-0.5 min-h-0 overflow-hidden">
-        {(() => {
-          const words = label.shortLabel.trim().split(/\s+/);
-          const maxWordLen = Math.max(...words.map((w) => w.length));
-          const isSingleWord = words.length === 1;
-
-          // Optimized mobile font scale: 8.6px floor to 10.0px on mobile, 13.5px-16.0px on PC
-          let fontSize: string;
-          let letterSpacing = '-0.02em';
-          let lineHeight = '1.03';
-          let allowWordBreak = false;
-
-          if (isSingleWord) {
-            if (maxWordLen >= 11) {
-              fontSize = 'clamp(8.6px, 1.2vw + 4.2px, 13.5px)';
-              letterSpacing = '-0.035em';
-              allowWordBreak = true; // Allow long words (>10 chars) to break cleanly on narrow mobile cells
-            } else if (maxWordLen >= 9) {
-              fontSize = 'clamp(9.0px, 1.3vw + 4.4px, 14.0px)';
-              letterSpacing = '-0.03em';
-            } else if (maxWordLen >= 7) {
-              fontSize = 'clamp(9.4px, 1.4vw + 4.6px, 14.5px)';
-              letterSpacing = '-0.025em';
-            } else {
-              fontSize = 'clamp(10.0px, 1.6vw + 4.8px, 16.0px)';
-              letterSpacing = '-0.015em';
-            }
-          } else {
-            if (maxWordLen >= 11) {
-              fontSize = 'clamp(8.6px, 1.2vw + 4.2px, 13.5px)';
-              letterSpacing = '-0.03em';
-            } else if (maxWordLen >= 9) {
-              fontSize = 'clamp(9.0px, 1.3vw + 4.4px, 14.0px)';
-              letterSpacing = '-0.025em';
-            } else if (maxWordLen >= 7) {
-              fontSize = 'clamp(9.4px, 1.4vw + 4.6px, 14.5px)';
-              letterSpacing = '-0.02em';
-            } else {
-              fontSize = 'clamp(10.0px, 1.6vw + 4.8px, 15.8px)';
-              letterSpacing = '-0.015em';
-            }
-          }
-
-          return (
-            <span
-              className={`
-                font-black uppercase text-center w-full block
-                transition-colors duration-150
-                ${marked ? 'text-amber-950' : 'text-slate-950'}
-              `}
-              style={{
-                fontSize,
-                lineHeight,
-                letterSpacing,
-                hyphens: allowWordBreak ? 'auto' : 'none',
-                WebkitHyphens: allowWordBreak ? 'auto' : 'none',
-                wordBreak: allowWordBreak ? 'break-word' : isSingleWord ? 'normal' : 'keep-all',
-                overflowWrap: allowWordBreak ? 'break-word' : 'normal',
-                whiteSpace: (isSingleWord && !allowWordBreak) ? 'nowrap' : 'normal',
-              } as React.CSSProperties}
-            >
-              {label.shortLabel}
-            </span>
-          );
-        })()}
+      {/* CENTER: THE LABEL — DOMINANT, USES 93% USABLE CELL WIDTH */}
+      <div className="flex-1 flex items-center justify-center w-[93%] max-w-[94%] mx-auto my-0 min-h-0 overflow-hidden">
+        <span
+          className={`
+            font-black uppercase text-center w-full block
+            transition-colors duration-150
+            ${marked ? 'text-amber-950' : 'text-slate-950'}
+          `}
+          style={{
+            fontSize,
+            lineHeight,
+            letterSpacing,
+            hyphens: 'none',
+            WebkitHyphens: 'none',
+            wordBreak: 'normal',
+            overflowWrap: 'normal',
+            whiteSpace: isSingleWord ? 'nowrap' : 'pre-line',
+            textWrap: isSingleWord ? 'nowrap' : 'balance',
+            WebkitTextWrap: isSingleWord ? 'nowrap' : 'balance',
+          } as React.CSSProperties}
+        >
+          {displayLabel}
+        </span>
       </div>
 
-      {/* BOTTOM ROW: evidence indicator + inspect hint */}
-      <div className="w-full flex items-end justify-between flex-shrink-0 h-2 sm:h-2.5">
+      {/* BOTTOM ROW: Evidence indicator (unobtrusive) */}
+      <div className="w-full flex items-end justify-between flex-shrink-0 h-2 sm:h-2.5 px-0.5">
         {hasEvidence ? (
           <span className="text-[7px] font-black text-emerald-600 leading-tight">
             📎 {evidence.length}
@@ -215,7 +211,6 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
         ) : (
           <span />
         )}
-        {/* Inspect hint — only visible on hover */}
         <span
           className="text-[6px] font-bold text-slate-300 group-hover:text-slate-400
             leading-tight transition-colors opacity-0 group-hover:opacity-100"
