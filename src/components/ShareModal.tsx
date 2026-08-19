@@ -107,61 +107,61 @@ export const ShareModal: React.FC<ShareModalProps> = ({ movementName, squares, o
         </div>
 
         {/* Body */}
-        <div className="modal-body-area p-5 overflow-y-auto space-y-4 flex-1 text-center">
+        <div className="modal-body-area p-3.5 sm:p-5 overflow-y-auto space-y-3 flex-1 text-center flex flex-col justify-between">
 
-          {/* PNG THEME TOGGLE (LIGHT PNG vs DARK PNG) */}
-          <div className="modal-selector-box flex items-center justify-between p-3 rounded-2xl">
-            <span className="modal-selector-title text-xs font-black uppercase tracking-wide">
-              Export Image Theme:
+          {/* PNG THEME TOGGLE (☀️ vs 🌙) */}
+          <div className="modal-selector-box flex items-center justify-between px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex-shrink-0">
+            <span className="modal-selector-title text-xs font-black uppercase tracking-wide text-slate-600 dark:text-slate-300">
+              Theme:
             </span>
-            <div className="flex items-center gap-1 bg-slate-200/80 dark:bg-slate-800 p-1 rounded-xl border border-slate-300/80 dark:border-slate-700">
+            <div className="flex items-center gap-1 bg-slate-200/80 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-300/80 dark:border-slate-700">
               <button
                 type="button"
                 onClick={() => setPngTheme('light')}
-                className={`px-3 py-1 rounded-lg text-xs font-black transition-all ${
+                title="Light Theme"
+                aria-label="Light Theme"
+                className={`px-3 py-1 rounded-md text-sm font-black transition-all ${
                   pngTheme === 'light'
                     ? 'bg-amber-400 text-slate-950 shadow-xs'
                     : 'text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
                 }`}
               >
-                ☀️ Light PNG
+                ☀️
               </button>
               <button
                 type="button"
                 onClick={() => setPngTheme('dark')}
-                className={`px-3 py-1 rounded-lg text-xs font-black transition-all ${
+                title="Dark Theme"
+                aria-label="Dark Theme"
+                className={`px-3 py-1 rounded-md text-sm font-black transition-all ${
                   pngTheme === 'dark'
                     ? 'bg-purple-600 text-white shadow-xs'
                     : 'text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
                 }`}
               >
-                🌙 Dark PNG
+                🌙
               </button>
             </div>
           </div>
 
           {/* Card preview */}
           {imageUrl ? (
-            <div className="relative inline-block rounded-2xl overflow-hidden
-              border-2 border-slate-200 dark:border-slate-700 shadow-md max-w-xs mx-auto group">
+            <div className="relative inline-block rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-md max-w-xs mx-auto group my-auto flex-shrink">
               <img
                 src={imageUrl}
                 alt="Government's Playbook Bingo share card"
-                className="w-full h-auto object-contain"
+                className="w-auto max-h-[35vh] sm:max-h-[44vh] object-contain mx-auto"
               />
-              <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100
-                transition-opacity flex items-center justify-center">
+              <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <button onClick={handleDownload} className="btn-primary text-xs py-2 px-4 gap-1.5">
                   <Download className="w-4 h-4" /> Download {pngTheme.toUpperCase()} PNG
                 </button>
               </div>
             </div>
           ) : (
-            <div className="h-64 bg-slate-100 dark:bg-slate-800 rounded-2xl flex flex-col items-center
-              justify-center text-slate-400 text-sm font-bold gap-2">
-              <div className="w-8 h-8 border-4 border-slate-300 border-t-purple-500
-                rounded-full animate-spin" />
-              Generating 1200×1200 {pngTheme.toUpperCase()} card…
+            <div className="h-44 sm:h-64 bg-slate-100 dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center text-slate-400 text-sm font-bold gap-2 my-auto">
+              <div className="w-8 h-8 border-4 border-slate-300 border-t-purple-500 rounded-full animate-spin" />
+              Generating card…
             </div>
           )}
 
