@@ -1,35 +1,27 @@
 import { BingoSquareState } from '../types';
 
 /* ═══════════════════════════════════════════════════════════════
-   SHARE CARD — 1200 px wide, height fitted to content
+   PLAYBOOK BINGO — High-Res Deterministic Social Share Card
    
-   Architecture:
+   Canvas Specifications:
    - Width: 1200 px
-   - Grid: 900 × 900 px square, 25 equal cells
-   - Height: computed (header + grid + footer) — no dead space
-   - Same function drives ShareModal preview & high-res PNG download
+   - Height: 1500 px (4:5 Social Media Portrait Ratio)
+   - Bingo Grid: 1000 × 1000 px Hero Board (~67% of visual area)
+   - Typography: Clean, bold sans-serif (Outfit & Inter)
+   - Aesthetic: Modern Game UI + Colorful Poster + Polished Social Graphic
    ═══════════════════════════════════════════════════════════════ */
 
-const SIZE = 1200; // canvas width
+const CANVAS_W = 1200;
+const CANVAS_H = 1500;
 
-/* ── Typography Scale ────────────────────────────────────────── */
-const FONT_BRAND    = '700 16px Outfit, sans-serif';
-const FONT_TITLE    = '900 30px Outfit, sans-serif';
-const FONT_SUBTITLE = '800 14px Outfit, sans-serif';
-const FONT_PILL     = '800 15px Outfit, sans-serif';
-const FONT_LABEL    = '900 16px Outfit, sans-serif';
-const FONT_CAT      = '700 10px Inter, sans-serif';
-const FONT_FOOTER   = '600 14px Inter, sans-serif';
-const FONT_BRAND_F  = '800 17px Outfit, sans-serif';
-
-/* ── Category Colors ────────────────────────────────────────── */
-const CAT_COLORS: Record<string, { bg: string; text: string }> = {
-  NATIONALISM: { bg: '#FFF1F2', text: '#BE123C' },
-  FOREIGN:     { bg: '#EFF6FF', text: '#1D4ED8' },
-  EXTREMISM:   { bg: '#FFFBEB', text: '#92400E' },
-  RELIGION:    { bg: '#FAF5FF', text: '#7E22CE' },
-  MEDIA:       { bg: '#ECFEFF', text: '#0E7490' },
-  CLASS:       { bg: '#F0FDF4', text: '#15803D' },
+/* ── Category Palette (Subtle & Restrained Accents) ─────────── */
+const CAT_COLORS: Record<string, { bg: string; text: string; border: string; accent: string }> = {
+  NATIONALISM: { bg: '#FFF1F2', text: '#BE123C', border: '#FECDD3', accent: '#F43F5E' },
+  FOREIGN:     { bg: '#EFF6FF', text: '#1D4ED8', border: '#BFDBFE', accent: '#3B82F6' },
+  EXTREMISM:   { bg: '#FFFBEB', text: '#92400E', border: '#FDE68A', accent: '#F59E0B' },
+  RELIGION:    { bg: '#FAF5FF', text: '#7E22CE', border: '#E9D5FF', accent: '#A855F7' },
+  MEDIA:       { bg: '#ECFEFF', text: '#0E7490', border: '#A5F3FC', accent: '#06B6D4' },
+  CLASS:       { bg: '#F0FDF4', text: '#15803D', border: '#BBF7D0', accent: '#10B981' },
 };
 
 const CAT_SHORT: Record<string, string> = {
@@ -64,7 +56,7 @@ function wrapText(
   return lines.filter(Boolean);
 }
 
-/* ── Rounded Rectangle Polyfill ─────────────────────────────── */
+/* ── Rounded Rectangle Helper ────────────────────────────────── */
 function roundRect(
   ctx: CanvasRenderingContext2D,
   x: number, y: number,
@@ -74,6 +66,7 @@ function roundRect(
   if (typeof ctx.roundRect === 'function') {
     ctx.roundRect(x, y, w, h, r);
   } else {
+    ctx.beginPath();
     ctx.moveTo(x + r, y);
     ctx.lineTo(x + w - r, y);
     ctx.quadraticCurveTo(x + w, y, x + w, y + r);
@@ -87,8 +80,23 @@ function roundRect(
   }
 }
 
+/* ── Draw Accent Sparkle Star (✦) ────────────────────────────── */
+function drawAccentStar(ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number, color: string) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - size);
+  ctx.quadraticCurveTo(cx, cy, cx + size, cy);
+  ctx.quadraticCurveTo(cx, cy, cx, cy + size);
+  ctx.quadraticCurveTo(cx, cy, cx - size, cy);
+  ctx.quadraticCurveTo(cx, cy, cx, cy - size);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
 /**
- * Renders a 1:1 Square Share Card (1200 × 1200 px).
+ * Creates the deterministic 1200 × 1500 px Canvas Element.
  */
 export function createShareCardCanvasElement(
   cardTitle: string,
@@ -98,159 +106,172 @@ export function createShareCardCanvasElement(
   isDarkMode: boolean = false
 ): HTMLCanvasElement {
 
-  // Layout constants — compute height from actual content
-  const ACCENT_H   = 10;
-  const GRID_SIZE  = 900;
-  const GRID_Y     = 164; // space for title + subheading + pill + divider
-  const FOOTER_PAD = 70;  // space below grid for quote + bottom stripe
-  const CANVAS_H   = GRID_Y + GRID_SIZE + FOOTER_PAD;
-
   const canvas = document.createElement('canvas');
-  canvas.width  = SIZE;
+  canvas.width  = CANVAS_W;
   canvas.height = CANVAS_H;
 
   const ctx = canvas.getContext('2d');
   if (!ctx) return canvas;
 
-  /* ── Theme Colors ────────────────────────────────────────────── */
-  const colorBg             = isDarkMode ? '#0B0F19' : '#FAF7F0';
-  const colorBorder         = isDarkMode ? '#334155' : '#0F172A';
+  /* ── Color Palette ───────────────────────────────────────────── */
+  const colorBg             = isDarkMode ? '#0B0F19' : '#FAF8F5'; // Warm cream in light, navy slate in dark
+  const colorOuterBorder    = isDarkMode ? '#1E293B' : '#E2E8F0';
+  const colorHeaderBadgeBg  = isDarkMode ? '#1E293B' : '#FFFFFF';
+  const colorHeaderBadgeText= isDarkMode ? '#FDE68A' : '#D97706';
   const colorTitle          = isDarkMode ? '#FFFFFF' : '#0F172A';
   const colorSubtitle       = isDarkMode ? '#94A3B8' : '#64748B';
-  const colorDivider        = isDarkMode ? '#1E293B' : '#E2E8F0';
-  const colorUnmarkedBg     = isDarkMode ? '#131926' : '#FFFFFF';
-  const colorUnmarkedBorder = isDarkMode ? '#273046' : '#CBD5E1';
-  const colorUnmarkedText   = isDarkMode ? '#E2E8F0' : '#0F172A';
-  const colorMarkedBg       = isDarkMode ? '#78350F' : '#FEF3C7';
-  const colorMarkedBorder   = isDarkMode ? '#F59E0B' : '#F59E0B';
+  const colorBoardCardBg    = isDarkMode ? '#0F172A' : '#FFFDF0';
+  const colorBoardCardBorder= isDarkMode ? '#1E293B' : '#FDE68A';
+  const colorUnmarkedBg     = isDarkMode ? '#1E293B' : '#FFFFFF';
+  const colorUnmarkedBorder = isDarkMode ? '#334155' : '#E2E8F0';
+  const colorUnmarkedText   = isDarkMode ? '#F8FAFC' : '#0F172A';
+  const colorMarkedBg       = isDarkMode ? '#78350F' : '#FEF3C7'; // Warm yellow/amber tint
+  const colorMarkedBorder   = isDarkMode ? '#F59E0B' : '#F59E0B'; // Bold amber border
   const colorMarkedText     = isDarkMode ? '#FEF3C7' : '#78350F';
-  const colorFooterText     = isDarkMode ? '#94A3B8' : '#64748B';
+  const colorTaglineBg      = isDarkMode ? '#1E293B' : '#FFFFFF';
+  const colorTaglineBorder  = isDarkMode ? '#334155' : '#CBD5E1';
+  const colorTaglineText    = isDarkMode ? '#CBD5E1' : '#475569';
 
-  /* ── 1. Background Fill ──────────────────────────────────────── */
+  /* ── 1. Base Background Fill ─────────────────────────────────── */
   ctx.fillStyle = colorBg;
-  ctx.fillRect(0, 0, SIZE, CANVAS_H);
+  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-  /* ── 1b. Render Confetti on PNG Canvas if Bingo Achieved ──────── */
-  if (isBingo) {
-    const confettiColors = ['#F59E0B', '#F43F5E', '#8B5CF6', '#10B981', '#3B82F6', '#EC4899', '#EAB308'];
-    for (let i = 0; i < 110; i++) {
-      const cx = ((i * 149.3) % (SIZE - 60)) + 30;
-      const cy = ((i * 223.7) % (CANVAS_H - 60)) + 30;
-      const color = confettiColors[i % confettiColors.length];
-      const particleSize = 7 + (i % 9);
-      const shape = i % 3;
-
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(((i * 37) * Math.PI) / 180);
-      ctx.fillStyle = color;
-      ctx.globalAlpha = 0.85;
-
-      if (shape === 0) {
-        ctx.fillRect(-particleSize / 2, -particleSize / 4, particleSize * 1.4, particleSize * 0.6);
-      } else if (shape === 1) {
-        ctx.beginPath();
-        ctx.arc(0, 0, particleSize / 2, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        ctx.beginPath();
-        ctx.moveTo(0, -particleSize / 2);
-        ctx.lineTo(particleSize / 2, 0);
-        ctx.lineTo(0, particleSize / 2);
-        ctx.lineTo(-particleSize / 2, 0);
-        ctx.closePath();
-        ctx.fill();
-      }
-      ctx.restore();
+  /* ── 1b. Subtle Pattern Background Dots ──────────────────────── */
+  ctx.fillStyle = isDarkMode ? 'rgba(255, 255, 255, 0.03)' : 'rgba(15, 23, 42, 0.03)';
+  for (let bx = 30; bx < CANVAS_W; bx += 40) {
+    for (let by = 30; by < CANVAS_H; by += 40) {
+      ctx.beginPath();
+      ctx.arc(bx, by, 1.5, 0, Math.PI * 2);
+      ctx.fill();
     }
-    ctx.globalAlpha = 1.0;
   }
 
-  /* ── 2. Top Accent Stripe ────────────────────────────────────── */
-  ctx.fillStyle = isBingo ? '#F59E0B' : '#8B5CF6';
-  ctx.fillRect(0, 0, SIZE, ACCENT_H);
+  /* ── 2. Top & Bottom Accent Stripes ──────────────────────────── */
+  const topGrad = ctx.createLinearGradient(0, 0, CANVAS_W, 0);
+  topGrad.addColorStop(0, '#F59E0B');
+  topGrad.addColorStop(0.5, '#F43F5E');
+  topGrad.addColorStop(1, '#8B5CF6');
 
-  /* ── 3. Outer Border ─────────────────────────────────────────── */
-  ctx.strokeStyle = colorBorder;
-  ctx.lineWidth = 6;
-  ctx.strokeRect(10, ACCENT_H + 4, SIZE - 20, CANVAS_H - ACCENT_H - 14);
+  ctx.fillStyle = topGrad;
+  ctx.fillRect(0, 0, CANVAS_W, 8);
+  ctx.fillRect(0, CANVAS_H - 8, CANVAS_W, 8);
 
-  /* ── 4. Header Section ───────────────────────────────────────── */
+  /* ── 3. Outer Framing Border ─────────────────────────────────── */
+  ctx.strokeStyle = colorOuterBorder;
+  ctx.lineWidth = 4;
+  ctx.strokeRect(12, 20, CANVAS_W - 24, CANVAS_H - 40);
+
+  /* ── 4. Decorative Corner Accents & Sparks ──────────────────── */
+  drawAccentStar(ctx, 45, 45, 10, '#F59E0B');
+  drawAccentStar(ctx, CANVAS_W - 45, 45, 10, '#8B5CF6');
+  drawAccentStar(ctx, 45, CANVAS_H - 45, 8, '#F43F5E');
+  drawAccentStar(ctx, CANVAS_W - 45, CANVAS_H - 45, 8, '#10B981');
+
+  /* ── 5. HEADER SECTION (Y = 20 to 310) ───────────────────────── */
   ctx.textAlign = 'center';
 
-  // 1. User Card Title (e.g. "CJP")
-  ctx.fillStyle = colorTitle;
-  ctx.font = FONT_TITLE;
-  const displayTitle = cardTitle.length > 32 ? cardTitle.slice(0, 30) + '…' : cardTitle;
-  ctx.fillText(displayTitle.toUpperCase(), SIZE / 2, 52);
+  // A. Top Brand Pill Badge (Y = 48)
+  const brandPillW = 320;
+  const brandPillH = 30;
+  const brandPillX = (CANVAS_W - brandPillW) / 2;
+  const brandPillY = 38;
 
-  // 2. Subheading directly below user title
-  ctx.fillStyle = colorSubtitle;
-  ctx.font = '800 13px "Outfit", sans-serif';
-  ctx.fillText("GOVERNMENT'S PLAYBOOK BINGO", SIZE / 2, 74);
-
-  // 3. Scorecard Progress Banner & Score Metrics
-  const scorePts = markedCount * 100;
-  const progressPct = Math.round((markedCount / 25) * 100);
-
-  const intensityLevel = markedCount === 0
-    ? 'CLEAN'
-    : markedCount <= 5
-    ? 'MILD'
-    : markedCount <= 12
-    ? 'ELEVATED'
-    : markedCount <= 20
-    ? 'HEAVY'
-    : 'FULL PLAYBOOK';
-
-  const pillText = `SCORE: ${scorePts} PTS   ·   ${progressPct}% PROG   ·   ${markedCount}/25 LABELS`;
-  const badgeText = isBingo ? '🏆 BINGO' : intensityLevel;
-
-  const PILL_W = 680;
-  const PILL_H = 38;
-  const pillX  = (SIZE - PILL_W) / 2;
-  const pillY  = 94;
-
-  // Background Pill Bar
-  ctx.fillStyle = isBingo ? '#9F1239' : (isDarkMode ? '#131926' : '#1E293B');
+  ctx.fillStyle = colorHeaderBadgeBg;
   ctx.beginPath();
-  roundRect(ctx, pillX, pillY, PILL_W, PILL_H, PILL_H / 2);
+  roundRect(ctx, brandPillX, brandPillY, brandPillW, brandPillH, brandPillH / 2);
   ctx.fill();
-
-  // Score Text (Left aligned inside Pill)
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = '800 14px "Outfit", sans-serif';
-  ctx.textAlign = 'left';
-  ctx.fillText(pillText, pillX + 20, pillY + 24);
-
-  // Status / Intensity Pill Badge (Right aligned inside Pill)
-  const badgeW = isBingo ? 115 : 125;
-  const badgeH = 28;
-  const badgeX = pillX + PILL_W - badgeW - 5;
-  const badgeY = pillY + 5;
-
-  ctx.fillStyle = isBingo ? '#F59E0B' : (isDarkMode ? '#F59E0B' : '#D97706');
-  ctx.beginPath();
-  roundRect(ctx, badgeX, badgeY, badgeW, badgeH, badgeH / 2);
-  ctx.fill();
-
-  ctx.fillStyle = isDarkMode ? '#000000' : '#FFFFFF';
-  ctx.font = '900 11px "Outfit", sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + 18);
-
-  // 4. Divider Line
-  ctx.strokeStyle = colorDivider;
+  ctx.strokeStyle = isDarkMode ? '#334155' : '#FDE68A';
   ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(60, 148);
-  ctx.lineTo(SIZE - 60, 148);
   ctx.stroke();
 
-  /* ── 5. 5×5 Square Grid Section ──────────────────────────────── */
-  const GRID_X    = (SIZE - GRID_SIZE) / 2; // 150px
-  const GAP       = 8;
-  const CELL      = (GRID_SIZE - GAP * 4) / 5; // ~173.6px per cell
+  ctx.fillStyle = colorHeaderBadgeText;
+  ctx.font = '800 12px Outfit, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('🎯 PLAYBOOK BINGO  ·  DISSENT TRACKER', CANVAS_W / 2, brandPillY + 19);
+
+  // B. Main Card Title (CJP / User Agenda) (Y = 112)
+  const displayTitle = cardTitle.length > 30 ? cardTitle.slice(0, 28) + '…' : cardTitle;
+  ctx.fillStyle = colorTitle;
+  ctx.font = '900 44px Outfit, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(displayTitle.toUpperCase(), CANVAS_W / 2, 112);
+
+  // C. Product Subheading (Y = 145)
+  ctx.fillStyle = colorSubtitle;
+  ctx.font = '800 14px Outfit, sans-serif';
+  ctx.fillText("GOVERNMENT'S PLAYBOOK BINGO", CANVAS_W / 2, 142);
+
+  // D. Progress Indicator Bar & Score Metrics (Y = 175 to 290)
+  const progressPct = Math.round((markedCount / 25) * 100);
+  const scorePts    = markedCount * 100;
+
+  const trackW = 1000;
+  const trackH = 16;
+  const trackX = (CANVAS_W - trackW) / 2; // 100px
+  const trackY = 245;
+
+  // Header stats above track (Y = 228)
+  ctx.textAlign = 'left';
+  ctx.fillStyle = colorTitle;
+  ctx.font = '900 16px Outfit, sans-serif';
+  ctx.fillText(`${markedCount} / 25 LABELS DOCUMENTED`, trackX, 228);
+
+  ctx.textAlign = 'right';
+  if (isBingo) {
+    ctx.fillStyle = '#F59E0B';
+    ctx.font = '900 16px Outfit, sans-serif';
+    ctx.fillText('🏆 BINGO CERTIFIED (100%)', trackX + trackW, 228);
+  } else {
+    ctx.fillStyle = colorSubtitle;
+    ctx.font = '800 15px Outfit, sans-serif';
+    ctx.fillText(`SCORE: ${scorePts} PTS   ·   ${progressPct}%`, trackX + trackW, 228);
+  }
+
+  // Progress Bar Track Background
+  ctx.fillStyle = isDarkMode ? '#1E293B' : '#E2E8F0';
+  ctx.beginPath();
+  roundRect(ctx, trackX, trackY, trackW, trackH, trackH / 2);
+  ctx.fill();
+
+  // Progress Bar Fill Gradient
+  const fillWidth = Math.max(markedCount > 0 ? 20 : 0, (markedCount / 25) * trackW);
+  if (fillWidth > 0) {
+    const barGrad = ctx.createLinearGradient(trackX, 0, trackX + trackW, 0);
+    barGrad.addColorStop(0, '#F59E0B');
+    barGrad.addColorStop(0.5, '#F43F5E');
+    barGrad.addColorStop(1, '#8B5CF6');
+
+    ctx.fillStyle = barGrad;
+    ctx.beginPath();
+    roundRect(ctx, trackX, trackY, fillWidth, trackH, trackH / 2);
+    ctx.fill();
+  }
+
+  /* ── 6. HERO 5×5 BINGO BOARD (Y = 295 to 1345) ─────────────────
+     65–75% of visual area = The Bingo Board Grid!
+     Board Outer Box: 1040 × 1040 px
+     Inner Grid: 1000 × 1000 px, 5 equal columns × 5 equal rows
+     ───────────────────────────────────────────────────────────── */
+  const BOARD_CARD_W = 1040;
+  const BOARD_CARD_H = 1040;
+  const BOARD_CARD_X = (CANVAS_W - BOARD_CARD_W) / 2; // 80px
+  const BOARD_CARD_Y = 290;
+
+  // Board Outer Frame Card
+  ctx.fillStyle = colorBoardCardBg;
+  ctx.beginPath();
+  roundRect(ctx, BOARD_CARD_X, BOARD_CARD_Y, BOARD_CARD_W, BOARD_CARD_H, 28);
+  ctx.fill();
+  ctx.strokeStyle = colorBoardCardBorder;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  // Inner Grid Dimensions
+  const GRID_SIZE = 1000;
+  const GRID_X    = (CANVAS_W - GRID_SIZE) / 2; // 100px
+  const GRID_Y    = 310;
+  const GAP       = 12;
+  const CELL      = (GRID_SIZE - GAP * 4) / 5; // 190.4 px per cell!
 
   squares.slice(0, 25).forEach((square, idx) => {
     const col = idx % 5;
@@ -259,16 +280,19 @@ export function createShareCardCanvasElement(
     const x = GRID_X + col * (CELL + GAP);
     const y = GRID_Y + row * (CELL + GAP);
 
-    // Cell Box
+    // A. Cell Container Box
     ctx.beginPath();
-    roundRect(ctx, x, y, CELL, CELL, 10);
+    roundRect(ctx, x, y, CELL, CELL, 14);
+
     if (square.marked) {
+      // Marked Cell: Warm Yellow Tint + Bold Amber Accent Border
       ctx.fillStyle = colorMarkedBg;
       ctx.fill();
       ctx.strokeStyle = colorMarkedBorder;
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 3.5;
       ctx.stroke();
     } else {
+      // Unmarked Cell: Clean White/Dark Fill + Subtle Border
       ctx.fillStyle = colorUnmarkedBg;
       ctx.fill();
       ctx.strokeStyle = colorUnmarkedBorder;
@@ -276,84 +300,104 @@ export function createShareCardCanvasElement(
       ctx.stroke();
     }
 
-    // Category Badge
-    const catInfo  = CAT_COLORS[square.label.category] ?? { bg: '#F1F5F9', text: '#475569' };
+    // B. Category Accent Pill (Top Left)
+    const catInfo  = CAT_COLORS[square.label.category] ?? { bg: '#F1F5F9', text: '#475569', border: '#CBD5E1', accent: '#64748B' };
     const catShort = CAT_SHORT[square.label.category]  ?? square.label.category.slice(0, 4);
 
-    ctx.font = FONT_CAT;
-    const badgeW = ctx.measureText(catShort).width + 12;
-    const badgeH = 18;
-    const badgeX = x + 6;
-    const badgeY = y + 6;
+    ctx.font = '800 11px Inter, sans-serif';
+    const catBadgeW = ctx.measureText(catShort).width + 12;
+    const catBadgeH = 20;
+    const catBadgeX = x + 10;
+    const catBadgeY = y + 10;
 
+    // Category Pill Fill
     ctx.fillStyle = isDarkMode ? '#1E293B' : catInfo.bg;
     ctx.beginPath();
-    roundRect(ctx, badgeX, badgeY, badgeW, badgeH, 4);
+    roundRect(ctx, catBadgeX, catBadgeY, catBadgeW, catBadgeH, 5);
     ctx.fill();
+    ctx.strokeStyle = isDarkMode ? '#334155' : catInfo.border;
+    ctx.lineWidth = 1;
+    ctx.stroke();
 
+    // Category Pill Text
     ctx.fillStyle = isDarkMode ? '#F1F5F9' : catInfo.text;
     ctx.textAlign = 'left';
-    ctx.fillText(catShort, badgeX + 6, badgeY + badgeH - 4);
+    ctx.fillText(catShort, catBadgeX + 6, catBadgeY + 14);
 
-    // Checkmark for marked cells
+    // C. Checkmark Badge for Marked Cells (Top Right)
     if (square.marked) {
-      const cx = x + CELL - 14;
-      const cy = y + 14;
+      const checkX = x + CELL - 20;
+      const checkY = y + 20;
       ctx.fillStyle = '#10B981';
       ctx.beginPath();
-      ctx.arc(cx, cy, 9, 0, Math.PI * 2);
+      ctx.arc(checkX, checkY, 11, 0, Math.PI * 2);
       ctx.fill();
       ctx.fillStyle = '#FFFFFF';
       ctx.textAlign = 'center';
-      ctx.font = '900 11px sans-serif';
-      ctx.fillText('✓', cx, cy + 4);
+      ctx.font = '900 12px sans-serif';
+      ctx.fillText('✓', checkX, checkY + 4);
     }
 
-    // Label Text (Centred in cell)
+    // D. Clean Label Text (Centered in cell)
     ctx.textAlign = 'center';
     ctx.fillStyle = square.marked ? colorMarkedText : colorUnmarkedText;
 
     const words = square.label.shortLabel.trim().split(/\s+/);
     const longestWord = Math.max(...words.map((w) => w.length));
 
-    let fontSize = 15;
+    // Dynamic Font Scaling for 190px cell width
+    let fontSize = 18;
     if (longestWord >= 11) {
-      fontSize = 11.5;
-    } else if (longestWord >= 9) {
-      fontSize = 12.5;
-    } else if (longestWord >= 7) {
       fontSize = 13.5;
+    } else if (longestWord >= 9) {
+      fontSize = 15;
+    } else if (longestWord >= 7) {
+      fontSize = 16.5;
     }
 
     ctx.font = `900 ${fontSize}px Outfit, sans-serif`;
 
-    const textMaxW = CELL - 16;
+    const textMaxW     = CELL - 20;
     const wrappedLines = wrapText(ctx, square.label.shortLabel, textMaxW);
-    const LINE_H     = fontSize * 1.15;
-    const totalTextH = wrappedLines.length * LINE_H;
-    const textStartY = y + CELL / 2 - totalTextH / 2 + LINE_H * 0.76;
+    const LINE_H       = fontSize * 1.18;
+    const totalTextH   = wrappedLines.length * LINE_H;
+    
+    // Shift down slightly to account for top category pill
+    const textStartY   = y + (CELL / 2) + 6 - (totalTextH / 2) + (LINE_H * 0.72);
 
     wrappedLines.forEach((line, li) => {
       ctx.fillText(line, x + CELL / 2, textStartY + li * LINE_H);
     });
   });
 
-  /* ── 6. Footer Section ───────────────────────────────────────── */
-  // Quote sits 32px below grid, bottom stripe flush with canvas bottom
-  const Y_FOOTER_QUOTE = GRID_Y + GRID_SIZE + 38;
+  /* ── 7. FOOTER SECTION (Y = 1350 to 1480) ─────────────────────── */
+  const Y_FOOTER_TAGLINE = 1385;
 
-  // Quote
+  // Tagline Capsule Box
+  const tagW = 680;
+  const tagH = 46;
+  const tagX = (CANVAS_W - tagW) / 2;
+
+  ctx.fillStyle = colorTaglineBg;
+  ctx.beginPath();
+  roundRect(ctx, tagX, Y_FOOTER_TAGLINE, tagW, tagH, tagH / 2);
+  ctx.fill();
+  ctx.strokeStyle = colorTaglineBorder;
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
   ctx.textAlign = 'center';
-  ctx.fillStyle = colorFooterText;
-  ctx.font = FONT_FOOTER;
-  const quoteText = isBingo
-    ? '"Full playbook unlocked!"'
+  ctx.fillStyle = colorTaglineText;
+  ctx.font = '800 15px Outfit, sans-serif';
+  const taglineText = isBingo
+    ? '🎯 "Full playbook unlocked! How many labels on your movement?"'
     : '"How many labels can they fit on one movement?"';
-  ctx.fillText(quoteText, SIZE / 2, Y_FOOTER_QUOTE);
+  ctx.fillText(taglineText, CANVAS_W / 2, Y_FOOTER_TAGLINE + 28);
 
-  // Bottom Accent Stripe
-  ctx.fillStyle = isBingo ? '#F59E0B' : '#8B5CF6';
-  ctx.fillRect(0, CANVAS_H - ACCENT_H, SIZE, ACCENT_H);
+  // Footer Signature Line
+  ctx.fillStyle = isDarkMode ? '#64748B' : '#94A3B8';
+  ctx.font = '800 12px Inter, sans-serif';
+  ctx.fillText('PLAYBOOK BINGO  ·  SATIRICAL DISSENT VOCABULARY TRACKER', CANVAS_W / 2, 1460);
 
   return canvas;
 }
