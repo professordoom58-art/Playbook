@@ -42,11 +42,11 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center gap-2 focus:outline-none group flex-shrink-0"
           aria-label="Go to home page"
         >
-          <div className="w-8 h-8 bg-amber-400 rounded-xl border-2 border-amber-500
-            flex items-center justify-center shadow-[0_2px_0_0_#D97706]
-            group-hover:scale-105 transition-transform overflow-hidden">
-            <img src="/LOGO.png" alt="Playbook Bingo Logo" className="w-full h-full object-cover" />
-          </div>
+          <img
+            src="/LOGO.png"
+            alt="Playbook Bingo Logo"
+            className="w-8 h-8 object-contain flex-shrink-0 group-hover:scale-105 transition-transform"
+          />
           <span className="font-display font-black text-lg tracking-tight text-slate-900 dark:text-white leading-none hidden sm:block">
             PLAYBOOK BINGO
           </span>

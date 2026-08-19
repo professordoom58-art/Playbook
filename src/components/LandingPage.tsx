@@ -73,10 +73,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
 
           <div className="flex items-center gap-2 flex-shrink min-w-0">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-400 rounded-xl sm:rounded-2xl border-2 border-amber-500
-              flex items-center justify-center shadow-[0_2px_0_0_#D97706] flex-shrink-0 overflow-hidden">
-              <img src="/LOGO.png" alt="Playbook Bingo Logo" className="w-full h-full object-cover" />
-            </div>
+            <img
+              src="/LOGO.png"
+              alt="Playbook Bingo Logo"
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain flex-shrink-0"
+            />
             <div className="flex flex-col justify-center min-w-0">
               <span
                 className="font-display font-black text-xs sm:text-xl tracking-tight leading-tight truncate block"
