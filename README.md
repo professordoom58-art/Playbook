@@ -30,13 +30,19 @@ The Orwell section is an editorial framework inspired by themes in George Orwell
 
 Built with React, TypeScript, Vite, Tailwind CSS, Lucide React, and HTML Canvas for PNG export.
 
-## Political Joke
+## Quotes
 
-Why do politicians love clean laundry?
-Because they love putting a new spin on everything.
+> "If voting made any difference, they would not let us do it."
+* Mark Twain
 
-Or as Mark Twain famously wrote:
-"If voting made any difference, they would not let us do it."
+> "Political language is designed to make lies sound truthful and murder respectable, and to give an appearance of solidity to pure wind."
+* George Orwell
+
+> "The whole aim of practical politics is to keep the populace alarmed and hence clamorous to be led to safety by threatening it with an endless series of hobgoblins."
+* H.L. Mencken
+
+> "Democracy means simply the bludgeoning of the people by the people for the people."
+* Oscar Wilde
 
 ## Creator
 
