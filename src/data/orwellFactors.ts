@@ -5,7 +5,7 @@ export const ORWELL_ASSESSMENT_METADATA = {
   lastUpdated: 'August 2026',
   totalFactors: 7,
   disclaimer: 'Orwell did not create a formal 7-factor autocracy test. This is an editorial framework inspired by recurring ideas in Orwell\'s published writings.',
-  methodologyOverview: 'This assessment evaluates legal, media, and institutional patterns against 7 plain-language concepts derived from George Orwell\'s published essays and books. A status of "FLAGGED" indicates current documented evidence fits that specific indicator — it is an editorial framework, not a formal academic autocracy index.'
+  methodologyOverview: 'This assessment evaluates legal, media, and institutional patterns against 7 plain-language concepts derived from George Orwell\'s published essays and books. A status of "FLAGGED" indicates current documented evidence fits that specific indicator. It is an editorial framework, not a formal academic autocracy index.'
 };
 
 export const ORWELL_FACTORS: OrwellFactor[] = [
@@ -74,7 +74,7 @@ export const ORWELL_FACTORS: OrwellFactor[] = [
     numberCode: '04',
     title: 'ENEMIES, NOT OPPONENTS',
     plainMeaning: 'Framing critics and political opponents as threats, traitors, or enemies instead of legitimate participants in political disagreement.',
-    orwellSource: '1984 (Part 1, Ch 1 - Two Minutes Hate)',
+    orwellSource: '1984 (Part 1, Ch 1: Two Minutes Hate)',
     orwellText: 'Orwell described how state propaganda creates designated internal enemies to direct public anxiety outward: "The object of persecution is persecution. The object of power is power."',
     lookForIndicators: [
       'Framing peaceful farm or student organizers as foreign-funded agitators',

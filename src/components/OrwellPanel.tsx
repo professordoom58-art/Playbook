@@ -75,7 +75,7 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
       {/* ── FACTOR LIST ───────────────────────────────────────────── */}
       <div className="orwell-factors-card">
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex-shrink-0">
-          7 Orwellian Factors — tap to inspect
+          7 Orwellian Factors: tap to inspect
         </p>
 
         <div className="orwell-factors-list">
@@ -86,7 +86,7 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
                 key={factor.id}
                 onClick={() => setSelectedFactor(factor)}
                 className="orwell-factor-row"
-                aria-label={`Factor ${factor.numberCode}: ${factor.title} — ${cfg.label}`}
+                aria-label={`Factor ${factor.numberCode}: ${factor.title}: ${cfg.label}`}
               >
                 {/* Number */}
                 <span className={`w-6 h-6 rounded-lg font-black text-[11px] flex items-center

@@ -67,7 +67,7 @@ export const OrwellFactorDrawer: React.FC<OrwellFactorDrawerProps> = ({ factor, 
             <div className="flex items-center gap-1.5 mb-1.5">
               <BookOpen className="w-3.5 h-3.5 text-amber-700" />
               <span className="text-[10px] font-black uppercase tracking-wider text-amber-800">
-                Orwell Concept — {factor.orwellSource}
+                Orwell Concept: {factor.orwellSource}
               </span>
             </div>
             <p className="text-xs text-slate-700 font-semibold italic leading-relaxed">

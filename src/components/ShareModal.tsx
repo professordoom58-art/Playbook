@@ -50,7 +50,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({ movementName, squares, o
     downloadPngFromCanvas(movementName, squares, markedCount, isBingo, pngTheme === 'dark');
 
   const shareText = isBingo
-    ? `🎯 BINGO — 25/25 dissent labels documented for "${movementName}". Full playbook unlocked! Play Playbook Bingo:`
+    ? `🎯 BINGO: 25/25 dissent labels documented for "${movementName}". Full playbook unlocked! Play Playbook Bingo:`
     : `🎯 ${markedCount}/25 dissent labels documented for "${movementName}". How many labels can they fit on one movement? Play Playbook Bingo:`;
 
   const handleCopyLink = () => {

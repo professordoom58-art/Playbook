@@ -106,7 +106,7 @@ export const LabelDetailModal: React.FC<LabelDetailModalProps> = ({
               }`}
           >
             <Check className="w-4 h-4" />
-            {marked ? '✓ Marked — click to unmark' : 'Mark as spotted'}
+            {marked ? '✓ Marked: click to unmark' : 'Mark as spotted'}
           </button>
 
           {/* Definition */}
@@ -243,7 +243,7 @@ export const LabelDetailModal: React.FC<LabelDetailModalProps> = ({
             {showAddEvidence && (
               <form onSubmit={handleAddEvidence} className="space-y-2 bg-slate-50 border-2 border-purple-200 rounded-2xl p-3">
                 <p className="text-[10px] font-black text-purple-700 uppercase tracking-wider">
-                  Add evidence — link, quote, or notes.
+                  Add evidence: link, quote, or notes.
                 </p>
                 <input
                   type="url"

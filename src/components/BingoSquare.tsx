@@ -149,7 +149,7 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
       onTouchCancel={handleTouchEnd}
       onContextMenu={(e) => { e.preventDefault(); triggerBounce(); onOpenDetail(); }}
       onKeyDown={handleKeyDown}
-      title={`${label.shortLabel} — tap/click to mark, long-press or double-click to inspect`}
+      title={`${label.shortLabel}: tap/click to mark, long-press or double-click to inspect`}
       className={`bingo-cell group ${marked ? 'is-marked' : ''} ${isBouncing ? 'cell-spring-bounce' : ''}`}
       aria-pressed={marked}
       aria-label={`${label.shortLabel}: ${marked ? 'marked' : 'not marked'}. Press I to inspect.`}

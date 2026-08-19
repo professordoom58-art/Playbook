@@ -484,7 +484,7 @@ export const MASTER_LABELS: DissLabel[] = [
     shortLabel: 'PSEUDO SECULAR',
     fullLabel: 'Pseudo-Secular',
     category: 'RELIGION',
-    definition: 'Coined by L.K. Advani in the 1990s, the term implies that secularism as practiced in India is hypocritical — favouring minority religious expression while suppressing Hindu expression. Now a standard label to dismiss any secular political argument.',
+    definition: 'Coined by L.K. Advani in the 1990s, the term implies that secularism as practiced in India is hypocritical, favouring minority religious expression while suppressing Hindu expression. Now a standard label to dismiss any secular political argument.',
     usedAgainst: ['Congress', 'Secular liberals', 'Journalists', 'Academics'],
     examples: [
       {
@@ -529,7 +529,7 @@ export const MASTER_LABELS: DissLabel[] = [
         date: '2016-ongoing',
       },
       {
-        description: 'IT Ministry proposed "Fact Check Units" to adjudicate "fake news" about the government — raising press freedom concerns as it gave the state power to label journalism as fake.',
+        description: 'IT Ministry proposed "Fact Check Units" to adjudicate "fake news" about the government, raising press freedom concerns as it gave the state power to label journalism as fake.',
         date: '2023',
         url: 'https://internetfreedom.in',
       },
@@ -816,7 +816,7 @@ export const MASTER_LABELS: DissLabel[] = [
     usedAgainst: ['Political opponents', 'Critics', 'Protesters'],
     examples: [
       {
-        description: 'Modi frequently addresses crowds — including those sceptical of his government — as "my frands", a pronunciation that became a viral meme symbolising the gap between political rhetoric and policy.',
+        description: 'Modi frequently addresses crowds, including those sceptical of his government, as "my frands", a pronunciation that became a viral meme symbolising the gap between political rhetoric and policy.',
         speaker: 'PM Narendra Modi',
         date: 'Recurring',
       },

@@ -236,7 +236,7 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
           {/* 5. REWORKED MOBILE ACTION CONTROLS */}
           <div className="w-full flex flex-col gap-2 pt-1">
             <div className="grid grid-cols-2 gap-2 w-full">
-              <button onClick={onShuffleBoard} className="btn-secondary w-full justify-center gap-1.5 py-2.5 px-3" title="Shuffle — new random 25 labels">
+              <button onClick={onShuffleBoard} className="btn-secondary w-full justify-center gap-1.5 py-2.5 px-3" title="Shuffle: new random 25 labels">
                 <Shuffle className="w-4 h-4 text-purple-500 dark:text-purple-400 flex-shrink-0" />
                 <span className="text-xs font-extrabold tracking-wide">SHUFFLE</span>
               </button>
@@ -369,7 +369,7 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
 
           {/* Action buttons — stacked column on desktop */}
           <div className="flex flex-col gap-2 w-full mt-auto">
-            <button onClick={onShuffleBoard} className="btn-secondary w-full justify-center gap-1.5 py-2 px-2" title="Shuffle — new random 25 labels">
+            <button onClick={onShuffleBoard} className="btn-secondary w-full justify-center gap-1.5 py-2 px-2" title="Shuffle: new random 25 labels">
               <Shuffle className="w-3.5 h-3.5 text-purple-500 dark:text-purple-400 flex-shrink-0" />
               <span className="text-xs font-bold truncate">Shuffle</span>
             </button>

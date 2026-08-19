@@ -96,7 +96,7 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
               <strong className="block text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-1">
                 Official Disclaimer
               </strong>
-              George Orwell never created an official 7-factor test or formal scoring system. These 7 factors are not official academic metrics — I created them based on my own editorial interpretation of recurring themes, warnings, and concepts found across Orwell's published novels and essays.
+              George Orwell never created an official 7-factor test or formal scoring system. These 7 factors are not official academic metrics. I created them based on my own editorial interpretation of recurring themes, warnings, and concepts found across Orwell's published novels and essays.
             </div>
           </div>
 
