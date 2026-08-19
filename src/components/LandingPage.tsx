@@ -523,14 +523,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
             {/* Navigation links & 50/50 Action buttons */}
             <div className="flex flex-col items-center gap-4 w-full md:w-auto">
-              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-black uppercase text-slate-300 tracking-wider">
-                <button onClick={onOpenHowItWorks} className="hover:text-amber-400 transition-colors uppercase">
+              <div className="flex flex-nowrap items-center justify-center gap-2.5 sm:gap-6 text-[9.5px] sm:text-xs font-black uppercase text-slate-300 tracking-wider whitespace-nowrap w-full">
+                <button onClick={onOpenHowItWorks} className="hover:text-amber-400 transition-colors uppercase whitespace-nowrap flex-shrink-0">
                   HOW IT WORKS
                 </button>
-                <button onClick={onOpenMethodology} className="hover:text-amber-400 transition-colors uppercase">
+                <button onClick={onOpenMethodology} className="hover:text-amber-400 transition-colors uppercase whitespace-nowrap flex-shrink-0">
                   WHO IS GEORGE ORWELL?
                 </button>
-                <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors uppercase">
+                <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors uppercase whitespace-nowrap flex-shrink-0">
                   DISCLAIMER
                 </button>
               </div>
