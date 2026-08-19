@@ -506,21 +506,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* ABOUT ME SECTION */}
-      <section className="py-12 px-4 sm:px-8 border-t-2 border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/60">
-        <div className="max-w-3xl mx-auto text-center space-y-4">
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700/60">
-            👑 CREATOR ALIAS
-          </span>
-          <h3 className="font-display font-black text-2xl sm:text-3xl tracking-tight text-slate-900 dark:text-white">
-            kakarothunter
-          </h3>
-          <p className="text-xs sm:text-sm font-medium italic text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl mx-auto bg-white dark:bg-slate-800/80 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700/80 shadow-sm">
-            "I am nothing but a self loathing, self depreciating despicable good for nothing jack of all trades master of none kind of guy. if you come after me make sure you kill me in silence and fast, like under 2secs. thankyou."
-          </p>
-        </div>
-      </section>
-
       {/* FOOTER */}
       <footer className="bg-slate-900 text-slate-400 py-10 px-4 sm:px-8
         border-t-4 border-amber-400 mt-auto">

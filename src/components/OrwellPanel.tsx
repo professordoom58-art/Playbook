@@ -121,19 +121,6 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
         </div>
       </div>
 
-      {/* ── ABOUT CREATOR CARD ────────────────────────────────────── */}
-      <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-slate-900/90 border-2 border-slate-200 dark:border-slate-800 shadow-xs text-center space-y-1.5 flex-shrink-0">
-        <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-wider text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800/60 px-2 py-0.5 rounded-full">
-          👑 CREATOR
-        </span>
-        <h5 className="font-display font-black text-xs text-slate-900 dark:text-white uppercase tracking-tight">
-          kakarothunter
-        </h5>
-        <p className="text-[10px] text-slate-600 dark:text-slate-300 font-medium italic leading-relaxed">
-          "I am nothing but a self loathing, self depreciating despicable good for nothing jack of all trades master of none kind of guy. if you come after me make sure you kill me in silence and fast, like under 2secs. thankyou."
-        </p>
-      </div>
-
       {/* ── FACTOR DETAIL MODAL ───────────────────────────────────── */}
       {selectedFactor && (
         <OrwellFactorDrawer
