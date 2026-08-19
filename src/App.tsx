@@ -16,6 +16,7 @@ import { OrwellPanel }      from './components/OrwellPanel';
 import { ShareModal }       from './components/ShareModal';
 import { HowItWorksModal }  from './components/HowItWorksModal';
 import { MethodologyModal } from './components/MethodologyModal';
+import { AboutMeModal }     from './components/AboutMeModal';
 import { DramaticOverlay }  from './components/DramaticOverlay';
 
 const MICROCOPIES = [
@@ -44,6 +45,7 @@ export function App() {
   const [showShareModal,        setShowShareModal]       = useState(false);
   const [showHowItWorksModal,   setShowHowItWorksModal]  = useState(false);
   const [showMethodologyModal,  setShowMethodologyModal] = useState(false);
+  const [showAboutMeModal,      setShowAboutMeModal]     = useState(false);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -161,6 +163,7 @@ export function App() {
           onPlayBingo={() => setCurrentView('GAME')}
           onOpenMethodology={() => setShowMethodologyModal(true)}
           onOpenHowItWorks={() => setShowHowItWorksModal(true)}
+          onOpenAboutMe={() => setShowAboutMeModal(true)}
           isDarkMode={isDarkMode}
           onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
           isDramatic={isDramatic}
@@ -168,6 +171,7 @@ export function App() {
         />
         {showMethodologyModal && <MethodologyModal onClose={() => setShowMethodologyModal(false)} />}
         {showHowItWorksModal  && <HowItWorksModal  onClose={() => setShowHowItWorksModal(false)} />}
+        {showAboutMeModal     && <AboutMeModal     onClose={() => setShowAboutMeModal(false)} />}
       </>
     );
   }
@@ -182,6 +186,7 @@ export function App() {
         onNavigateView={(v) => setCurrentView(v)}
         onOpenHowItWorks={() => setShowHowItWorksModal(true)}
         onOpenMethodology={() => setShowMethodologyModal(true)}
+        onOpenAboutMe={() => setShowAboutMeModal(true)}
         onOpenShare={() => setShowShareModal(true)}
         markedCount={markedCount}
         isDarkMode={isDarkMode}
@@ -224,6 +229,7 @@ export function App() {
       {showShareModal       && <ShareModal      movementName={currentMovement.name} squares={board} onClose={() => setShowShareModal(false)} />}
       {showHowItWorksModal  && <HowItWorksModal onClose={() => setShowHowItWorksModal(false)} />}
       {showMethodologyModal && <MethodologyModal onClose={() => setShowMethodologyModal(false)} />}
+      {showAboutMeModal     && <AboutMeModal     onClose={() => setShowAboutMeModal(false)} />}
 
     </div>
   );

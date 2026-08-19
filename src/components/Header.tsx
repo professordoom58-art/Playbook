@@ -6,6 +6,7 @@ interface HeaderProps {
   onNavigateView: (view: 'LANDING' | 'GAME') => void;
   onOpenHowItWorks: () => void;
   onOpenMethodology: () => void;
+  onOpenAboutMe?: () => void;
   onOpenShare: () => void;
   markedCount: number;
   isDarkMode: boolean;
@@ -18,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigateView,
   onOpenHowItWorks,
   onOpenMethodology,
+  onOpenAboutMe,
   onOpenShare,
   markedCount,
   isDarkMode,
@@ -65,6 +67,12 @@ export const Header: React.FC<HeaderProps> = ({
             <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
             Who is George Orwell?
           </button>
+          {onOpenAboutMe && (
+            <button onClick={onOpenAboutMe} className="btn-ghost flex items-center gap-1.5 text-purple-600 dark:text-purple-400">
+              <Sparkles className="w-3.5 h-3.5 text-purple-500" />
+              About Me
+            </button>
+          )}
         </nav>
 
         {/* Right: Toggles + share button + mobile menu */}

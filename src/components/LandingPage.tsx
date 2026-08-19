@@ -6,6 +6,7 @@ interface LandingPageProps {
   onPlayBingo: () => void;
   onOpenMethodology: () => void;
   onOpenHowItWorks: () => void;
+  onOpenAboutMe?: () => void;
   isDarkMode: boolean;
   onToggleDarkMode: () => void;
   isDramatic: boolean;
@@ -29,6 +30,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onPlayBingo,
   onOpenMethodology,
   onOpenHowItWorks,
+  onOpenAboutMe,
   isDarkMode,
   onToggleDarkMode,
   isDramatic,
@@ -540,7 +542,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 text-xs font-extrabold text-slate-300">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-extrabold text-slate-300">
             <button onClick={onOpenHowItWorks} className="hover:text-amber-400 transition-colors">
               How It Works
             </button>
@@ -550,13 +552,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <button onClick={() => scrollToSection('orwell-info')} className="hover:text-amber-400 transition-colors">
               Disclaimer
             </button>
-            <button
-              onClick={onPlayBingo}
-              className="btn-primary inline-flex items-center justify-center gap-2 py-2.5 px-5 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform"
-            >
-              <Play className="w-4 h-4 fill-slate-950 stroke-none" />
-              <span>PLAY BINGO</span>
-            </button>
+            {onOpenAboutMe && (
+              <button onClick={onOpenAboutMe} className="hover:text-purple-400 transition-colors">
+                About Creator
+              </button>
+            )}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onPlayBingo}
+                className="btn-primary inline-flex items-center justify-center gap-2 py-2.5 px-5 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform"
+              >
+                <Play className="w-4 h-4 fill-slate-950 stroke-none" />
+                <span>PLAY BINGO</span>
+              </button>
+              {onOpenAboutMe && (
+                <button
+                  onClick={onOpenAboutMe}
+                  className="bg-purple-600 hover:bg-purple-500 text-white border-2 border-purple-400 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 text-xs sm:text-sm font-black rounded-xl shadow-md hover:scale-105 transition-transform cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-300" />
+                  <span>ABOUT ME</span>
+                </button>
+              )}
+            </div>
           </div>
 
           <span className="text-[11px] text-slate-500 font-semibold">
