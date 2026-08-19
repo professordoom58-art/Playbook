@@ -1,12 +1,16 @@
-import React from 'react';
-import { X, BookOpen, ShieldAlert, User, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, BookOpen, ShieldAlert, User, ChevronRight } from 'lucide-react';
 import { ORWELL_FACTORS } from '../data/orwellFactors';
+import { OrwellFactorDrawer } from './OrwellFactorDrawer';
+import { OrwellFactor } from '../types';
 
 interface MethodologyModalProps {
   onClose: () => void;
 }
 
 export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) => {
+  const [selectedFactor, setSelectedFactor] = useState<OrwellFactor | null>(null);
+
   return (
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="modal-content max-w-2xl max-h-[85vh] flex flex-col">
@@ -17,9 +21,6 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
             <h3 className="font-display font-black text-lg sm:text-xl text-slate-900 dark:text-white leading-tight">
               Who is George Orwell?
             </h3>
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
-              An overview of George Orwell, his warnings, and my 7-factor editorial framework.
-            </p>
           </div>
           <button
             onClick={onClose}
@@ -35,14 +36,14 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
           
           {/* 1. START: BRIEF ABOUT GEORGE ORWELL */}
           <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-50 via-rose-50 to-amber-50 dark:from-purple-950/40 dark:via-rose-950/30 dark:to-amber-950/30 border-2 border-purple-200 dark:border-purple-800/60">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1.5">
               <User className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               <h4 className="font-black text-slate-900 dark:text-white text-xs sm:text-sm uppercase tracking-wider">
                 Who was George Orwell?
               </h4>
             </div>
             <p className="text-xs font-medium leading-relaxed text-slate-700 dark:text-slate-300">
-              <strong className="text-slate-900 dark:text-white">George Orwell</strong> (pen name of Eric Arthur Blair, 1903–1950) was a renowned English novelist, essayist, and political critic. Famous for his sharp warnings against totalitarianism, state surveillance, and language manipulation, his most influential works include the classic dystopian novels <em>1984</em> and <em>Animal Farm</em>, alongside seminal essays like <em>Politics and the English Language</em> and <em>Notes on Nationalism</em>.
+              <strong className="text-slate-900 dark:text-white">George Orwell</strong> (Eric Arthur Blair, 1903–1950) was an English novelist and critic best known for <em>1984</em> and <em>Animal Farm</em>, warning against state surveillance, authoritarianism, and language manipulation.
             </p>
           </div>
 
@@ -53,18 +54,19 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
               The 7 Orwellian Factors Discussed
             </h4>
 
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {ORWELL_FACTORS.map((factor) => (
-                <div
+                <button
                   key={factor.id}
-                  className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex items-start gap-3"
+                  onClick={() => setSelectedFactor(factor)}
+                  className="w-full text-left p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 hover:bg-purple-50/80 dark:hover:bg-purple-950/40 border border-slate-200 dark:border-slate-700/80 hover:border-purple-300 dark:hover:border-purple-700 transition-all flex items-center gap-3 cursor-pointer group"
                 >
-                  <span className="w-6 h-6 rounded-lg bg-rose-600 text-white font-black text-xs flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                  <span className="w-6 h-6 rounded-lg bg-rose-600 text-white font-black text-xs flex items-center justify-center flex-shrink-0 shadow-xs">
                     {factor.numberCode}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <h5 className="font-extrabold text-slate-900 dark:text-white text-xs uppercase tracking-tight">
+                    <div className="flex items-center justify-between gap-2 mb-0.5">
+                      <h5 className="font-extrabold text-slate-900 dark:text-white text-xs uppercase tracking-tight truncate">
                         {factor.title}
                       </h5>
                       <span
@@ -77,14 +79,12 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
                         {factor.status === 'FLAGGED' ? 'CONFIRMED' : 'COMING SOON'}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-300 font-medium leading-snug mb-1">
-                      {factor.plainMeaning}
-                    </p>
                     <p className="text-[10px] text-slate-400 dark:text-slate-400 italic">
                       Source: {factor.orwellSource}
                     </p>
                   </div>
-                </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex-shrink-0" />
+                </button>
               ))}
             </div>
           </div>
@@ -102,6 +102,14 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
 
         </div>
       </div>
+
+      {/* FACTOR DETAIL DRAWER / MODAL */}
+      {selectedFactor && (
+        <OrwellFactorDrawer
+          factor={selectedFactor}
+          onClose={() => setSelectedFactor(null)}
+        />
+      )}
     </div>
   );
 };
