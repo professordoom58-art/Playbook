@@ -74,9 +74,14 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
 
       {/* ── FACTOR LIST ───────────────────────────────────────────── */}
       <div className="orwell-factors-card">
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex-shrink-0">
-          7 Orwellian Factors: tap to inspect
-        </p>
+        <div className="flex items-center justify-between mb-2 flex-shrink-0 w-full">
+          <span className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
+            7 Orwellian Factors
+          </span>
+          <span className="text-[9.5px] font-black text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+            TAP TO INSPECT
+          </span>
+        </div>
 
         <div className="orwell-factors-list">
           {ORWELL_FACTORS.map((factor) => {
