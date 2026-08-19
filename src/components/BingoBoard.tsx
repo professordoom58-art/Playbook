@@ -155,11 +155,11 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
             </div>
           </div>
 
-          {/* 3. SEPARATE AGENDA & SCORECARD PILLS FOR MOBILE */}
-          <div className="w-full flex items-stretch gap-2">
-            {/* LEFT PILL: AGENDA TITLE & RENAME */}
+          {/* 3. SEPARATE FIXED-SIZE AGENDA & SCORECARD PILLS FOR MOBILE */}
+          <div className="w-full flex items-center gap-2">
+            {/* LEFT PILL: FIXED AGENDA TITLE & RENAME */}
             <div
-              className="flex-1 min-w-0 flex flex-col justify-center px-3 py-1.5 rounded-xl border-2 shadow-sm transition-colors"
+              className="flex-1 min-w-0 h-[42px] flex flex-col justify-center px-2.5 rounded-xl border-2 shadow-sm transition-colors"
               style={{
                 backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
                 borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
@@ -190,17 +190,17 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
               </h3>
             </div>
 
-            {/* RIGHT PILL: SCORECARD METRICS */}
+            {/* RIGHT PILL: FIXED-WIDTH SCORECARD METRICS */}
             <div
-              className="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border-2 shadow-sm transition-colors"
+              className="flex-none w-[204px] h-[42px] flex items-center justify-between px-2 rounded-xl border-2 shadow-sm transition-colors"
               style={{
                 backgroundColor: isDarkMode ? '#0F172A' : '#FFFFFF',
                 borderColor: isDarkMode ? '#1E293B' : '#E2E8F0',
               }}
             >
-              {/* Status Level Badge */}
+              {/* Fixed-Width Status Level Badge */}
               <span
-                className={`text-[8px] font-black px-1.5 py-0.5 rounded-full shadow-xs border ${
+                className={`w-[64px] h-5 flex items-center justify-center text-[7.5px] font-black leading-none rounded-full shadow-xs border text-center truncate flex-shrink-0 ${
                   markedCount === 0
                     ? 'bg-emerald-500 text-white border-emerald-600'
                     : markedCount <= 5
@@ -211,6 +211,17 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                     ? 'bg-orange-500 text-white border-orange-600'
                     : 'bg-rose-600 text-white border-rose-700'
                 }`}
+                title={
+                  markedCount === 0
+                    ? 'CLEAN'
+                    : markedCount <= 5
+                    ? 'MILD'
+                    : markedCount <= 12
+                    ? 'ELEVATED'
+                    : markedCount <= 20
+                    ? 'HEAVY'
+                    : 'FULL PLAYBOOK'
+                }
               >
                 {markedCount === 0
                   ? 'CLEAN'
@@ -223,9 +234,9 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                   : 'FULL PLAYBOOK'}
               </span>
 
-              {/* Metric Boxes */}
-              <div className="flex items-center gap-1">
-                <div className="scorecard-metric-box border px-1.5 py-0.5 rounded-lg text-center min-w-[34px] flex flex-col items-center justify-center">
+              {/* Fixed-Width Metric Boxes */}
+              <div className="flex items-center gap-1 flex-shrink-0">
+                <div className="scorecard-metric-box border w-[36px] h-[30px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
                   <span className="scorecard-num text-[11px] font-black block leading-none">
                     {markedCount * 100}
                   </span>
@@ -234,8 +245,8 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                   </span>
                 </div>
 
-                <div className="scorecard-metric-box border px-1.5 py-0.5 rounded-lg text-center min-w-[34px] flex flex-col items-center justify-center">
-                  <span className="scorecard-num-purple text-[11px] font-black block leading-none">
+                <div className="scorecard-metric-box border w-[38px] h-[30px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
+                  <span className="scorecard-num-purple text-[10.5px] font-black block leading-none">
                     {isBingo ? 'BINGO' : `${pct}%`}
                   </span>
                   <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
@@ -243,7 +254,7 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                   </span>
                 </div>
 
-                <div className="scorecard-metric-box border px-1.5 py-0.5 rounded-lg text-center min-w-[30px] flex flex-col items-center justify-center">
+                <div className="scorecard-metric-box border w-[32px] h-[30px] rounded-lg text-center flex flex-col items-center justify-center flex-shrink-0">
                   <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-black block leading-none">
                     {completedLinesCount}
                   </span>
