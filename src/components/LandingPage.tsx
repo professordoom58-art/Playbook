@@ -234,7 +234,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[380px] console-wiggle-container">
               {/* Console Frame Image */}
               <img
-                src="/ChatGPT Image Aug 19, 2026, 08_59_14 PM.png"
+                src="/CONSOLE.png"
                 alt="Playbook Bingo Console"
                 className="w-full h-auto block select-none pointer-events-none drop-shadow-2xl"
               />
