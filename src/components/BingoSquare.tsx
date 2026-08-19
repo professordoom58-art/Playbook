@@ -143,24 +143,46 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
         {(() => {
           const words = label.shortLabel.trim().split(/\s+/);
           const longestWord = Math.max(...words.map((w) => w.length));
+          const isSingleWord = words.length === 1;
 
           // Responsive, optically balanced font scaling across Mobile and PC Desktop
           let fontSize = 'clamp(9.5px, 1.5vw + 4px, 16.5px)';
           let letterSpacing = '-0.02em';
           let lineHeight = '1.03';
 
-          if (longestWord >= 11) {
-            fontSize = 'clamp(7.2px, 0.9vw + 4px, 12.5px)';
-            letterSpacing = '-0.035em';
-          } else if (longestWord >= 9) {
-            fontSize = 'clamp(7.8px, 1.1vw + 4px, 13.5px)';
-            letterSpacing = '-0.03em';
-          } else if (longestWord >= 7) {
-            fontSize = 'clamp(8.4px, 1.25vw + 4px, 14.5px)';
-            letterSpacing = '-0.025em';
-          } else if (longestWord >= 5) {
-            fontSize = 'clamp(9.0px, 1.35vw + 4px, 15.5px)';
-            letterSpacing = '-0.02em';
+          if (isSingleWord) {
+            // Single words must remain on 1 single line (whiteSpace: nowrap)
+            if (longestWord >= 12) {
+              fontSize = 'clamp(5.8px, 0.75vw + 3.2px, 11.2px)';
+              letterSpacing = '-0.04em';
+            } else if (longestWord >= 10) {
+              fontSize = 'clamp(6.4px, 0.85vw + 3.5px, 12.0px)';
+              letterSpacing = '-0.035em';
+            } else if (longestWord >= 8) {
+              fontSize = 'clamp(7.2px, 1.0vw + 3.8px, 13.0px)';
+              letterSpacing = '-0.03em';
+            } else if (longestWord >= 6) {
+              fontSize = 'clamp(8.0px, 1.2vw + 4.0px, 14.5px)';
+              letterSpacing = '-0.025em';
+            } else {
+              fontSize = 'clamp(9.2px, 1.4vw + 4.2px, 16.0px)';
+              letterSpacing = '-0.02em';
+            }
+          } else {
+            // Multi-word phrases wrap between words
+            if (longestWord >= 11) {
+              fontSize = 'clamp(7.0px, 0.9vw + 4px, 12.5px)';
+              letterSpacing = '-0.035em';
+            } else if (longestWord >= 9) {
+              fontSize = 'clamp(7.5px, 1.1vw + 4px, 13.5px)';
+              letterSpacing = '-0.03em';
+            } else if (longestWord >= 7) {
+              fontSize = 'clamp(8.2px, 1.25vw + 4px, 14.5px)';
+              letterSpacing = '-0.025em';
+            } else if (longestWord >= 5) {
+              fontSize = 'clamp(8.8px, 1.35vw + 4px, 15.5px)';
+              letterSpacing = '-0.02em';
+            }
           }
 
           return (
@@ -174,11 +196,11 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
                 fontSize,
                 lineHeight,
                 letterSpacing,
-                hyphens: 'auto',
-                WebkitHyphens: 'auto',
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word',
-                whiteSpace: 'normal',
+                hyphens: 'none',
+                WebkitHyphens: 'none',
+                wordBreak: isSingleWord ? 'normal' : 'keep-all',
+                overflowWrap: 'normal',
+                whiteSpace: isSingleWord ? 'nowrap' : 'normal',
               } as React.CSSProperties}
             >
               {label.shortLabel}
