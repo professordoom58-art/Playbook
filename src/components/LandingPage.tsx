@@ -15,15 +15,15 @@ interface LandingPageProps {
 
 /* Mini demo card labels for the hero section — single-word labels */
 const DEMO_LABELS = [
-  { label: 'TRAITOR',    marked: true  },
-  { label: 'NAXAL',      marked: false },
-  { label: 'AGENT',      marked: false },
-  { label: 'JIHADI',     marked: false },
-  { label: 'MAOIST',     marked: true  },
-  { label: 'APPEASER',   marked: false },
-  { label: 'TERRORIST',  marked: false },
-  { label: 'KHALISTANI', marked: false },
-  { label: 'FRANDS',     marked: true  },
+  { label: 'TRAITOR',  marked: true  },
+  { label: 'NAXAL',    marked: false },
+  { label: 'AGENT',    marked: false },
+  { label: 'JIHADI',   marked: false },
+  { label: 'MAOIST',   marked: true  },
+  { label: 'SOROS',    marked: false },
+  { label: 'CHINESE',  marked: false },
+  { label: 'UNCAPPED', marked: false },
+  { label: 'FRANDS',   marked: true  },
 ];
 
 export const LandingPage: React.FC<LandingPageProps> = ({
