@@ -144,14 +144,23 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
           const words = label.shortLabel.trim().split(/\s+/);
           const longestWord = Math.max(...words.map((w) => w.length));
 
-          // Smooth, optically balanced font scaling across the grid
-          let fontSize = 'clamp(10.2px, 3.0vw, 12.8px)';
-          if (longestWord >= 12) {
-            fontSize = 'clamp(8.0px, 2.2vw, 10.5px)';
-          } else if (longestWord >= 10) {
-            fontSize = 'clamp(8.6px, 2.5vw, 11.2px)';
-          } else if (longestWord >= 8) {
-            fontSize = 'clamp(9.5px, 2.8vw, 12.0px)';
+          // Robust, optically balanced font scaling to fit long words in narrow 5x5 grid cells
+          let fontSize = 'clamp(8.8px, 2.7vw, 12.0px)';
+          let letterSpacing = '-0.02em';
+          let lineHeight = '1.02';
+
+          if (longestWord >= 11) {
+            fontSize = 'clamp(6.2px, 1.8vw, 8.2px)';
+            letterSpacing = '-0.04em';
+          } else if (longestWord >= 9) {
+            fontSize = 'clamp(6.8px, 2.1vw, 9.0px)';
+            letterSpacing = '-0.035em';
+          } else if (longestWord >= 7) {
+            fontSize = 'clamp(7.5px, 2.4vw, 10.0px)';
+            letterSpacing = '-0.03em';
+          } else if (longestWord >= 5) {
+            fontSize = 'clamp(8.2px, 2.6vw, 11.0px)';
+            letterSpacing = '-0.02em';
           }
 
           return (
@@ -163,12 +172,12 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
               `}
               style={{
                 fontSize,
-                lineHeight: 1.05,
-                letterSpacing: '-0.01em',
-                hyphens: 'none',
-                WebkitHyphens: 'none',
-                wordBreak: 'keep-all',
-                overflowWrap: 'normal',
+                lineHeight,
+                letterSpacing,
+                hyphens: 'auto',
+                WebkitHyphens: 'auto',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
                 whiteSpace: 'normal',
               } as React.CSSProperties}
             >
