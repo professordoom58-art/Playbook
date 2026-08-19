@@ -18,7 +18,7 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
               Who is George Orwell?
             </h3>
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">
-              An overview of George Orwell, his warnings, and our 7-factor editorial framework.
+              An overview of George Orwell, his warnings, and my 7-factor editorial framework.
             </p>
           </div>
           <button
@@ -96,7 +96,7 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
               <strong className="block text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-1">
                 Official Disclaimer
               </strong>
-              George Orwell never created an official 7-factor test or formal scoring system. These 7 factors are not official academic metrics — we created them based on our own editorial interpretation of recurring themes, warnings, and concepts found across Orwell's published novels and essays.
+              George Orwell never created an official 7-factor test or formal scoring system. These 7 factors are not official academic metrics — I created them based on my own editorial interpretation of recurring themes, warnings, and concepts found across Orwell's published novels and essays.
             </div>
           </div>
 

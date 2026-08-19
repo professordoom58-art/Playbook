@@ -75,7 +75,7 @@ export const OrwellFactorDrawer: React.FC<OrwellFactorDrawerProps> = ({ factor, 
             </p>
           </div>
 
-          {/* What we look for */}
+          {/* What I look for */}
           <div>
             <div className="flex items-center gap-1.5 mb-2">
               <Eye className="w-3.5 h-3.5 text-purple-600" />

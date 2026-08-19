@@ -498,7 +498,7 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
 
             {/* Description */}
             <p className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-              We have achieved <span className="font-extrabold text-rose-600 dark:text-rose-400">{markedCount}/25</span> labels for <span className="font-extrabold text-purple-600 dark:text-purple-400">"{movement.name}"</span>,<br />
+              I have achieved <span className="font-extrabold text-rose-600 dark:text-rose-400">{markedCount}/25</span> labels for <span className="font-extrabold text-purple-600 dark:text-purple-400">"{movement.name}"</span>,<br />
               it's time for an international trip! ✈️
             </p>
 
