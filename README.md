@@ -1,54 +1,55 @@
 # PLAYBOOK BINGO
 
-A satirical Bingo game about the labels, accusations and political vocabulary used against people who dissent, protest or challenge people in power.
+A satirical Bingo game tracking the labels, accusations, and wild political vocabulary thrown around in public discourse. 
 
-## How it works
+## What is this
 
-Play a 5×5 Bingo card containing 25 dissent labels.
+Play a 5x5 Bingo card packed with 25 classic dissent labels.
 
 ```text
-SEE IT → MARK IT → ADD RECEIPT → GET BINGO
+SEE IT → MARK IT → ADD YOUR NOTES → GET BINGO
 ```
 
-When you encounter a documented example of a label being used, mark the square and attach evidence such as a source, quote, video, screenshot or date.
+When you spot a label being used in the wild, click the square and attach your notes, quotes, or evidence links. It is a fun way to log public rhetoric and see how common these buzzwords really are.
 
-The point is to document **what was said and where it was said**, not to treat the accusation itself as fact.
+## Cool Features
 
-## Features
+* 5x5 Dissent Vocabulary Bingo board
+* Shuffle board, clear marks, and live score tracking
+* Attach evidence and notes for every square
+* Shareable high resolution PNG export
+* Mobile friendly responsive design
+* Who is George Orwell section with 7 factors
+* Light, dark, and dramatic sound effect modes
 
-• 5×5 Dissent Vocabulary Bingo  
-• Shuffle, clear and progress tracking  
-• Evidence and source details for labels  
-• Shareable Bingo cards and PNG export  
-• Mobile-friendly game layout  
-• Separate Orwell Check with 7 editorial factors  
-• Light, dark and dramatic modes  
+## The Orwell Section
 
-## Orwell Check
+The Orwell section is an editorial framework inspired by themes in George Orwell's books and essays. It is just a fun commentary tool, not an official scientific index.
 
-The Orwell Check is an editorial framework inspired by themes in George Orwell's published work.
+## Tech Stack
 
-It is **not** an official Orwell test or scientific authoritarianism index.
+Built with React, TypeScript, Vite, Tailwind CSS, Lucide React, and HTML Canvas for PNG export.
 
-## Stack
+## Quick Start
 
-React, TypeScript, Vite, Tailwind CSS, Lucide React and Canvas-based image generation.
-
-## Development
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Run dev server:
+
+```bash
 npm run dev
 ```
 
-Build:
+Build for production:
 
 ```bash
 npm run build
 ```
 
-## Status
+## Creator
 
-The project is actively being developed. The core game, mobile layout, sharing system and Orwell Check are in place, while the label research, evidence database and final polish are still being refined.
-
-See `PLAYBOOK_BINGO_PROJECT_STATUS.md` for the current project state.
+Created by kakarothunter.
