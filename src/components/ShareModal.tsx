@@ -165,42 +165,42 @@ export const ShareModal: React.FC<ShareModalProps> = ({ movementName, squares, o
             </div>
           )}
 
-          {/* Action buttons — Distinct 3D Tactile Colors */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          {/* Action buttons — Single Horizontal Row on Mobile (4 Columns) */}
+          <div className="grid grid-cols-4 gap-1.5 sm:gap-2.5 w-full">
             {/* Download PNG: Amber Yellow */}
             <button
               onClick={handleDownload}
-              className="btn-primary text-xs py-3 px-2 flex-col gap-1.5 w-full justify-center rounded-2xl font-black shadow-[0_3px_0_0_#D97706] active:translate-y-0.5 transition-all"
+              className="btn-primary text-[10px] sm:text-xs py-2.5 sm:py-3 px-1 flex-col gap-1 w-full justify-center rounded-xl sm:rounded-2xl font-black shadow-[0_3px_0_0_#D97706] active:translate-y-0.5 transition-all"
             >
-              <Download className="w-5 h-5 text-slate-950" />
-              <span>Download PNG</span>
+              <Download className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950 flex-shrink-0" />
+              <span className="truncate max-w-full">Download</span>
             </button>
 
             {/* Copy Link: Tactile Slate/White */}
             <button
               onClick={handleCopyLink}
-              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border-2 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-xs py-3 px-2 flex-col gap-1.5 w-full justify-center rounded-2xl font-black shadow-[0_3px_0_0_#94A3B8] active:translate-y-0.5 transition-all flex items-center"
+              className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border-2 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-[10px] sm:text-xs py-2.5 sm:py-3 px-1 flex-col gap-1 w-full justify-center rounded-xl sm:rounded-2xl font-black shadow-[0_3px_0_0_#94A3B8] active:translate-y-0.5 transition-all flex items-center"
             >
-              {copied ? <Check className="w-5 h-5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-5 h-5 text-slate-700 dark:text-slate-200" />}
-              <span>{copied ? 'Copied!' : 'Copy Link'}</span>
+              {copied ? <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" /> : <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700 dark:text-slate-200 flex-shrink-0" />}
+              <span className="truncate max-w-full">{copied ? 'Copied!' : 'Copy Link'}</span>
             </button>
 
             {/* Share on X: Slate Dark */}
             <button
               onClick={handleTwitterShare}
-              className="bg-slate-900 hover:bg-slate-800 border-2 border-slate-950 text-white text-xs py-3 px-2 flex-col gap-1.5 w-full justify-center rounded-2xl font-black shadow-[0_3px_0_0_#0F172A] active:translate-y-0.5 transition-all flex items-center"
+              className="bg-slate-900 hover:bg-slate-800 border-2 border-slate-950 text-white text-[10px] sm:text-xs py-2.5 sm:py-3 px-1 flex-col gap-1 w-full justify-center rounded-xl sm:rounded-2xl font-black shadow-[0_3px_0_0_#0F172A] active:translate-y-0.5 transition-all flex items-center"
             >
-              <Share2 className="w-5 h-5 text-white" />
-              <span>Share on X</span>
+              <Share2 className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" />
+              <span className="truncate max-w-full">Share X</span>
             </button>
 
             {/* WhatsApp: Emerald Green */}
             <button
               onClick={handleWhatsAppShare}
-              className="bg-emerald-500 hover:bg-emerald-400 border-2 border-emerald-600 text-white text-xs py-3 px-2 flex-col gap-1.5 w-full justify-center rounded-2xl font-black shadow-[0_3px_0_0_#059669] active:translate-y-0.5 transition-all flex items-center"
+              className="bg-emerald-500 hover:bg-emerald-400 border-2 border-emerald-600 text-white text-[10px] sm:text-xs py-2.5 sm:py-3 px-1 flex-col gap-1 w-full justify-center rounded-xl sm:rounded-2xl font-black shadow-[0_3px_0_0_#059669] active:translate-y-0.5 transition-all flex items-center"
             >
-              <Share2 className="w-5 h-5 text-white" />
-              <span>WhatsApp</span>
+              <Share2 className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" />
+              <span className="truncate max-w-full">WhatsApp</span>
             </button>
           </div>
 
