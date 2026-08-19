@@ -41,7 +41,7 @@ export const AboutMeModal: React.FC<AboutMeModalProps> = ({ onClose }) => {
 
           <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border-2 border-slate-200 dark:border-slate-700/80 text-center shadow-xs">
             <p className="text-xs sm:text-sm font-medium italic text-slate-700 dark:text-slate-200 leading-relaxed">
-              "I am nothing but a self loathing, self depreciating despicable good for nothing jack of all trades master of none kind of guy. if you come after me make sure you kill me in silence and fast, like under 2secs. thankyou."
+              "I am an intrinsically self-abasing, perpetually self-disparaging, and thoroughly contemptible cipher of negligible consequence: an ineffectual dilettante possessing superficial competency across innumerable disciplines while attaining mastery in none. Should you ever elect to pursue my demise, I respectfully request that the undertaking be executed with maximal discretion and alacrity, preferably accomplishing my termination within an interval of no more than two seconds. Your prompt compliance would be sincerely appreciated."
             </p>
           </div>
 
