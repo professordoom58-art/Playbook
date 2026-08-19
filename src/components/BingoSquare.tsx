@@ -145,7 +145,7 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
           const maxWordLen = Math.max(...words.map((w) => w.length));
           const isSingleWord = words.length === 1;
 
-          // Unified optical font scaling: high mobile floor (~8.5px) + bold desktop size (~13.5-16px)
+          // Optimized mobile font scale: 8.6px floor to 10.0px on mobile, 13.5px-16.0px on PC
           let fontSize: string;
           let letterSpacing = '-0.02em';
           let lineHeight = '1.03';
@@ -153,31 +153,31 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
 
           if (isSingleWord) {
             if (maxWordLen >= 11) {
-              fontSize = 'clamp(8.4px, 1.15vw + 4.0px, 13.2px)';
+              fontSize = 'clamp(8.6px, 1.2vw + 4.2px, 13.5px)';
               letterSpacing = '-0.035em';
               allowWordBreak = true; // Allow long words (>10 chars) to break cleanly on narrow mobile cells
             } else if (maxWordLen >= 9) {
-              fontSize = 'clamp(8.8px, 1.25vw + 4.2px, 13.8px)';
+              fontSize = 'clamp(9.0px, 1.3vw + 4.4px, 14.0px)';
               letterSpacing = '-0.03em';
             } else if (maxWordLen >= 7) {
-              fontSize = 'clamp(9.2px, 1.35vw + 4.5px, 14.5px)';
+              fontSize = 'clamp(9.4px, 1.4vw + 4.6px, 14.5px)';
               letterSpacing = '-0.025em';
             } else {
-              fontSize = 'clamp(9.8px, 1.55vw + 4.8px, 16.0px)';
+              fontSize = 'clamp(10.0px, 1.6vw + 4.8px, 16.0px)';
               letterSpacing = '-0.015em';
             }
           } else {
             if (maxWordLen >= 11) {
-              fontSize = 'clamp(8.5px, 1.2vw + 4.2px, 13.5px)';
+              fontSize = 'clamp(8.6px, 1.2vw + 4.2px, 13.5px)';
               letterSpacing = '-0.03em';
             } else if (maxWordLen >= 9) {
-              fontSize = 'clamp(8.8px, 1.3vw + 4.4px, 14.0px)';
+              fontSize = 'clamp(9.0px, 1.3vw + 4.4px, 14.0px)';
               letterSpacing = '-0.025em';
             } else if (maxWordLen >= 7) {
-              fontSize = 'clamp(9.2px, 1.4vw + 4.6px, 14.8px)';
+              fontSize = 'clamp(9.4px, 1.4vw + 4.6px, 14.5px)';
               letterSpacing = '-0.02em';
             } else {
-              fontSize = 'clamp(9.8px, 1.55vw + 4.8px, 15.8px)';
+              fontSize = 'clamp(10.0px, 1.6vw + 4.8px, 15.8px)';
               letterSpacing = '-0.015em';
             }
           }

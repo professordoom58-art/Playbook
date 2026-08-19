@@ -189,7 +189,10 @@ export function createShareCardCanvasElement(
   ctx.font = '800 13px "Outfit", sans-serif';
   ctx.fillText("GOVERNMENT'S PLAYBOOK BINGO", SIZE / 2, 74);
 
-  // 3. Scorecard Progress Banner & Intensity Badge
+  // 3. Scorecard Progress Banner & Score Metrics
+  const scorePts = markedCount * 100;
+  const progressPct = Math.round((markedCount / 25) * 100);
+
   const intensityLevel = markedCount === 0
     ? 'CLEAN'
     : markedCount <= 5
@@ -200,42 +203,41 @@ export function createShareCardCanvasElement(
     ? 'HEAVY'
     : 'FULL PLAYBOOK';
 
-  const pillText = isBingo
-    ? '🏆 BINGO! AUTOCRACY ACHIEVED 🏆'
-    : `SCORE: ${markedCount * 100} PTS (${markedCount}/25 LABELS)`;
-  const PILL_W = isBingo ? 640 : 580;
-  const PILL_H = 36;
+  const pillText = `SCORE: ${scorePts} PTS   ·   ${progressPct}% PROG   ·   ${markedCount}/25 LABELS`;
+  const badgeText = isBingo ? '🏆 BINGO' : intensityLevel;
+
+  const PILL_W = 680;
+  const PILL_H = 38;
   const pillX  = (SIZE - PILL_W) / 2;
   const pillY  = 94;
 
-  ctx.fillStyle = isBingo ? '#F43F5E' : (isDarkMode ? '#131926' : '#1E293B');
+  // Background Pill Bar
+  ctx.fillStyle = isBingo ? '#9F1239' : (isDarkMode ? '#131926' : '#1E293B');
   ctx.beginPath();
   roundRect(ctx, pillX, pillY, PILL_W, PILL_H, PILL_H / 2);
   ctx.fill();
 
+  // Score Text (Left aligned inside Pill)
   ctx.fillStyle = '#FFFFFF';
-  ctx.font = isBingo ? '900 16px "Outfit", sans-serif' : FONT_PILL;
-  ctx.textAlign = isBingo ? 'center' : 'left';
-  ctx.fillText(pillText, isBingo ? SIZE / 2 : pillX + 24, pillY + 24);
+  ctx.font = '800 14px "Outfit", sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(pillText, pillX + 20, pillY + 24);
 
-  // Intensity Pill Badge on PNG Canvas
-  if (!isBingo) {
-    const badgeW = 110;
-    const badgeH = 26;
-    const badgeX = pillX + PILL_W - badgeW - 5;
-    const badgeY = pillY + 5;
+  // Status / Intensity Pill Badge (Right aligned inside Pill)
+  const badgeW = isBingo ? 115 : 125;
+  const badgeH = 28;
+  const badgeX = pillX + PILL_W - badgeW - 5;
+  const badgeY = pillY + 5;
 
-    ctx.fillStyle = isDarkMode ? '#F59E0B' : '#D97706';
-    ctx.beginPath();
-    roundRect(ctx, badgeX, badgeY, badgeW, badgeH, badgeH / 2);
-    ctx.fill();
+  ctx.fillStyle = isBingo ? '#F59E0B' : (isDarkMode ? '#F59E0B' : '#D97706');
+  ctx.beginPath();
+  roundRect(ctx, badgeX, badgeY, badgeW, badgeH, badgeH / 2);
+  ctx.fill();
 
-    // White text in Light Mode, Black text in Dark Mode!
-    ctx.fillStyle = isDarkMode ? '#000000' : '#FFFFFF';
-    ctx.font = '900 11px "Outfit", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(intensityLevel, badgeX + badgeW / 2, badgeY + 17);
-  }
+  ctx.fillStyle = isDarkMode ? '#000000' : '#FFFFFF';
+  ctx.font = '900 11px "Outfit", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + 18);
 
   // 4. Divider Line
   ctx.strokeStyle = colorDivider;
