@@ -78,7 +78,7 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
           <span className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
             7 Orwellian Factors
           </span>
-          <span className="text-[9.5px] font-black text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+          <span className="text-[9.5px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-wider">
             TAP TO INSPECT
           </span>
         </div>
