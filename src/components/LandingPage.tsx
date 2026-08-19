@@ -22,7 +22,7 @@ const DEMO_LABELS = [
   { label: 'MAOIST',   marked: true  },
   { label: 'SOROS',    marked: false },
   { label: 'CHINESE',  marked: false },
-  { label: 'UNCAPPED', marked: false },
+  { label: 'UNCAP',    marked: false },
   { label: 'FRANDS',   marked: true  },
 ];
 
