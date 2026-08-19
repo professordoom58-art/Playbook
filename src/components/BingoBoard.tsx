@@ -207,21 +207,12 @@ export const BingoBoard: React.FC<BingoBoardProps> = ({
                 </span>
               </div>
 
-              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[44px]">
+              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[48px]">
                 <span className="scorecard-num-purple text-[11px] font-black block leading-none">
                   {isBingo ? 'BINGO' : `${pct}%`}
                 </span>
                 <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
                   PROG
-                </span>
-              </div>
-
-              <div className="scorecard-metric-box border px-2 py-0.5 rounded-lg text-center flex flex-col items-center justify-center h-[30px] min-w-[36px]">
-                <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-black block leading-none">
-                  {completedLinesCount}
-                </span>
-                <span className="scorecard-label text-[7px] font-extrabold uppercase block leading-none mt-0.5">
-                  LINES
                 </span>
               </div>
             </div>
