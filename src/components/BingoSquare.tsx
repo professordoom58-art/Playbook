@@ -109,26 +109,26 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
     // Single-word labels: ALWAYS 1 line, NEVER split or break words
     if (longestWord >= 11) {
       // 11-12 chars (e.g. PROPAGANDIST, COCKROACHES)
-      fontSize = 'clamp(7.8px, 1.85vw + 1.8px, 12.8px)';
+      fontSize = 'clamp(7.0px, 1.6vw + 1.2px, 12.5px)';
       letterSpacing = '-0.038em';
     } else if (longestWord >= 9) {
       // 9-10 chars (e.g. COMMUNIST, EXTREMIST, SEPARATIST, KHALISTANI, SEDITIOUS, ECOSYSTEM)
-      fontSize = 'clamp(8.8px, 2.1vw + 2.0px, 14.2px)';
+      fontSize = 'clamp(7.8px, 1.85vw + 1.5px, 13.8px)';
       letterSpacing = '-0.03em';
     } else {
       // <= 8 chars (e.g. MAOIST, APPEASER, JIHADI, NAXAL, FRANDS)
-      fontSize = 'clamp(9.5px, 2.3vw + 2.2px, 15.5px)';
+      fontSize = 'clamp(8.8px, 2.1vw + 1.8px, 15.0px)';
       letterSpacing = '-0.02em';
     }
   } else {
     // Multi-word phrases: Max 2 lines balanced, NEVER break inside words
     if (longestWord >= 11) {
       // e.g. MINORITY APPEASEMENT
-      fontSize = 'clamp(8.2px, 1.95vw + 2.0px, 13.5px)';
+      fontSize = 'clamp(7.6px, 1.75vw + 1.5px, 13.2px)';
       letterSpacing = '-0.025em';
     } else {
       // e.g. KHAN MARKET GANG, WESTERN STOOGE, CHINESE AGENT, PAKISTAN BACKED
-      fontSize = 'clamp(9.2px, 2.2vw + 2.2px, 14.8px)';
+      fontSize = 'clamp(8.5px, 2.0vw + 1.8px, 14.2px)';
       letterSpacing = '-0.02em';
     }
   }
@@ -177,8 +177,8 @@ export const BingoSquare: React.FC<BingoSquareProps> = ({
         </div>
       </div>
 
-      {/* CENTER: THE LABEL — DOMINANT, USES 93% USABLE CELL WIDTH */}
-      <div className="flex-1 flex items-center justify-center w-[93%] max-w-[94%] mx-auto my-0 min-h-0 overflow-hidden">
+      {/* CENTER: THE LABEL — DOMINANT, UNTRUNCATED, USES 95% USABLE CELL WIDTH */}
+      <div className="flex-1 flex items-center justify-center w-[95%] max-w-[96%] mx-auto my-0 min-h-0">
         <span
           className={`
             font-black uppercase text-center w-full block
