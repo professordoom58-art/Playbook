@@ -39,11 +39,11 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
             <div className="flex items-center gap-2 mb-1.5">
               <User className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               <h4 className="font-black text-slate-900 dark:text-white text-xs sm:text-sm uppercase tracking-wider">
-                Who was George Orwell?
+                Who is George Orwell?
               </h4>
             </div>
             <p className="text-xs font-medium leading-relaxed text-slate-700 dark:text-slate-300">
-              <strong className="text-slate-900 dark:text-white">George Orwell</strong> (Eric Arthur Blair, 1903–1950) was an English novelist and critic best known for <em>1984</em> and <em>Animal Farm</em>, warning against state surveillance, authoritarianism, and language manipulation.
+              <strong className="text-slate-900 dark:text-white">George Orwell</strong> (Eric Arthur Blair, 1903–1950) was an English novelist and critic best known for <em>1984</em> and <em>Animal Farm</em>, warned against state surveillance, authoritarianism, and language manipulation.
             </p>
           </div>
 
@@ -65,24 +65,22 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
                     {factor.numberCode}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-2 mb-0.5">
-                      <h5 className="font-extrabold text-slate-900 dark:text-white text-xs uppercase tracking-tight truncate">
-                        {factor.title}
-                      </h5>
-                      <span
-                        className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full flex-shrink-0 ${
-                          factor.status === 'FLAGGED'
-                            ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800'
-                            : 'bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-400'
-                        }`}
-                      >
-                        {factor.status === 'FLAGGED' ? 'CONFIRMED' : 'COMING SOON'}
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-slate-400 dark:text-slate-400 italic">
+                    <h5 className="font-extrabold text-slate-900 dark:text-white text-xs uppercase tracking-tight truncate mb-0.5">
+                      {factor.title}
+                    </h5>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-400 italic truncate">
                       Source: {factor.orwellSource}
                     </p>
                   </div>
+                  <span
+                    className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full flex-shrink-0 ${
+                      factor.status === 'FLAGGED'
+                        ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800'
+                        : 'bg-slate-200 text-slate-600 dark:bg-slate-700 dark:text-slate-400'
+                    }`}
+                  >
+                    {factor.status === 'FLAGGED' ? '✓ ACHIEVED' : 'COMING SOON'}
+                  </span>
                   <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex-shrink-0" />
                 </button>
               ))}
@@ -96,7 +94,7 @@ export const MethodologyModal: React.FC<MethodologyModalProps> = ({ onClose }) =
               <strong className="block text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-1">
                 Official Disclaimer
               </strong>
-              George Orwell never created an official 7-factor test. These factors are not academic metrics. I created them based on my personal interpretation of themes in Orwell's writings.
+              Well, George Orwell never created a "7 FACTOR TEST". This is just my interpretation of how these conditions fit the theme of Orwell's writings.
             </div>
           </div>
 

@@ -9,7 +9,7 @@ interface OrwellPanelProps {
 }
 
 const STATUS_CONFIG = {
-  FLAGGED:               { label: 'Confirmed',    css: 'status-flagged',     shortLabel: '✓'          },
+  FLAGGED:               { label: 'Achieved',     css: 'status-flagged',     shortLabel: '✓'          },
   NOT_FLAGGED:           { label: 'Coming Soon',  css: 'status-not-flagged', shortLabel: 'COMING SOON' },
   INSUFFICIENT_EVIDENCE: { label: 'Coming Soon',  css: 'status-insufficient',shortLabel: 'COMING SOON' },
 };

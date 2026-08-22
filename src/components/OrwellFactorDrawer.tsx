@@ -156,7 +156,7 @@ export const OrwellFactorDrawer: React.FC<OrwellFactorDrawerProps> = ({ factor, 
           {/* Disclaimer */}
           <div className="p-3 rounded-xl bg-slate-100 border border-slate-200">
             <p className="text-[11px] text-slate-500 font-medium leading-snug">
-              <strong className="text-slate-600">Real Talk:</strong> Pure satire for the laughs. Orwell dropped classics back in the day but I built this game for fun. No cap just jokes!
+              <strong className="text-slate-600">Disclaimer -</strong> I dont want to keep reminding yall again and again that this is satire, dont sue me
             </p>
           </div>
 

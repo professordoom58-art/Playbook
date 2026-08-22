@@ -462,10 +462,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               flex items-center justify-center text-rose-700 font-black mb-6">
               <ShieldAlert className="w-6 h-6" />
             </div>
-            <h3 className="text-3xl font-black text-slate-900 mb-4">what did 6 say to 7? 67</h3>
+            <h3 className="text-3xl font-black text-slate-900 mb-4">100% SATIRE</h3>
             <p className="text-base font-medium text-slate-600 leading-relaxed">
-              I'm here for pure satire and laughs. The labels track real viral rhetoric used out
-              in the wild, served up in a fun, interactive game. Have fun!
+              No terms and conditions apply. This is the most unserious website ever.
             </p>
           </div>
 
