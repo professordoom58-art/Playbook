@@ -47,7 +47,7 @@ export const AboutMeModal: React.FC<AboutMeModalProps> = ({ onClose }) => {
 
           <div className="text-center">
             <span className="text-[11px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
-              what did 6 say to 7? 67
+              WASTEGUNA HUYEAIN
             </span>
           </div>
 

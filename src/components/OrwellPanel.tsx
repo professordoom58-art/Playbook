@@ -36,8 +36,8 @@ export const OrwellPanel: React.FC<OrwellPanelProps> = ({ onOpenMethodology }) =
             <h4 className="text-xs font-black uppercase tracking-wide mt-1 mb-0.5 text-slate-950 dark:text-white" style={{ color: 'inherit' }}>
               TODAY'S INDIA
             </h4>
-            <p className="text-[10px] text-slate-400 font-semibold italic leading-tight">
-              what did 6 say to 7? 67
+            <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider leading-tight">
+              WASTEGUNA HUYEAIN
             </p>
           </div>
 
